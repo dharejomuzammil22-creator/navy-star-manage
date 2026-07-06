@@ -13,6 +13,13 @@ import { Route as TrainerRouteImport } from './routes/trainer'
 import { Route as StudentRouteImport } from './routes/student'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminUpdationRouteImport } from './routes/admin.updation'
+import { Route as AdminTrainersRouteImport } from './routes/admin.trainers'
+import { Route as AdminStudentsRouteImport } from './routes/admin.students'
+import { Route as AdminSlotsRouteImport } from './routes/admin.slots'
+import { Route as AdminProfileRouteImport } from './routes/admin.profile'
+import { Route as AdminAttendanceRouteImport } from './routes/admin.attendance'
 
 const TrainerRoute = TrainerRouteImport.update({
   id: '/trainer',
@@ -34,37 +41,125 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminUpdationRoute = AdminUpdationRouteImport.update({
+  id: '/updation',
+  path: '/updation',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminTrainersRoute = AdminTrainersRouteImport.update({
+  id: '/trainers',
+  path: '/trainers',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminStudentsRoute = AdminStudentsRouteImport.update({
+  id: '/students',
+  path: '/students',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSlotsRoute = AdminSlotsRouteImport.update({
+  id: '/slots',
+  path: '/slots',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProfileRoute = AdminProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAttendanceRoute = AdminAttendanceRouteImport.update({
+  id: '/attendance',
+  path: '/attendance',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/student': typeof StudentRoute
   '/trainer': typeof TrainerRoute
+  '/admin/attendance': typeof AdminAttendanceRoute
+  '/admin/profile': typeof AdminProfileRoute
+  '/admin/slots': typeof AdminSlotsRoute
+  '/admin/students': typeof AdminStudentsRoute
+  '/admin/trainers': typeof AdminTrainersRoute
+  '/admin/updation': typeof AdminUpdationRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
   '/student': typeof StudentRoute
   '/trainer': typeof TrainerRoute
+  '/admin/attendance': typeof AdminAttendanceRoute
+  '/admin/profile': typeof AdminProfileRoute
+  '/admin/slots': typeof AdminSlotsRoute
+  '/admin/students': typeof AdminStudentsRoute
+  '/admin/trainers': typeof AdminTrainersRoute
+  '/admin/updation': typeof AdminUpdationRoute
+  '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/student': typeof StudentRoute
   '/trainer': typeof TrainerRoute
+  '/admin/attendance': typeof AdminAttendanceRoute
+  '/admin/profile': typeof AdminProfileRoute
+  '/admin/slots': typeof AdminSlotsRoute
+  '/admin/students': typeof AdminStudentsRoute
+  '/admin/trainers': typeof AdminTrainersRoute
+  '/admin/updation': typeof AdminUpdationRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/student' | '/trainer'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/student'
+    | '/trainer'
+    | '/admin/attendance'
+    | '/admin/profile'
+    | '/admin/slots'
+    | '/admin/students'
+    | '/admin/trainers'
+    | '/admin/updation'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/student' | '/trainer'
-  id: '__root__' | '/' | '/admin' | '/student' | '/trainer'
+  to:
+    | '/'
+    | '/student'
+    | '/trainer'
+    | '/admin/attendance'
+    | '/admin/profile'
+    | '/admin/slots'
+    | '/admin/students'
+    | '/admin/trainers'
+    | '/admin/updation'
+    | '/admin'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/student'
+    | '/trainer'
+    | '/admin/attendance'
+    | '/admin/profile'
+    | '/admin/slots'
+    | '/admin/students'
+    | '/admin/trainers'
+    | '/admin/updation'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRoute: typeof AdminRoute
+  AdminRoute: typeof AdminRouteWithChildren
   StudentRoute: typeof StudentRoute
   TrainerRoute: typeof TrainerRoute
 }
@@ -99,12 +194,83 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/updation': {
+      id: '/admin/updation'
+      path: '/updation'
+      fullPath: '/admin/updation'
+      preLoaderRoute: typeof AdminUpdationRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/trainers': {
+      id: '/admin/trainers'
+      path: '/trainers'
+      fullPath: '/admin/trainers'
+      preLoaderRoute: typeof AdminTrainersRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/students': {
+      id: '/admin/students'
+      path: '/students'
+      fullPath: '/admin/students'
+      preLoaderRoute: typeof AdminStudentsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/slots': {
+      id: '/admin/slots'
+      path: '/slots'
+      fullPath: '/admin/slots'
+      preLoaderRoute: typeof AdminSlotsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/profile': {
+      id: '/admin/profile'
+      path: '/profile'
+      fullPath: '/admin/profile'
+      preLoaderRoute: typeof AdminProfileRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/attendance': {
+      id: '/admin/attendance'
+      path: '/attendance'
+      fullPath: '/admin/attendance'
+      preLoaderRoute: typeof AdminAttendanceRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminAttendanceRoute: typeof AdminAttendanceRoute
+  AdminProfileRoute: typeof AdminProfileRoute
+  AdminSlotsRoute: typeof AdminSlotsRoute
+  AdminStudentsRoute: typeof AdminStudentsRoute
+  AdminTrainersRoute: typeof AdminTrainersRoute
+  AdminUpdationRoute: typeof AdminUpdationRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminAttendanceRoute: AdminAttendanceRoute,
+  AdminProfileRoute: AdminProfileRoute,
+  AdminSlotsRoute: AdminSlotsRoute,
+  AdminStudentsRoute: AdminStudentsRoute,
+  AdminTrainersRoute: AdminTrainersRoute,
+  AdminUpdationRoute: AdminUpdationRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRoute: AdminRoute,
+  AdminRoute: AdminRouteWithChildren,
   StudentRoute: StudentRoute,
   TrainerRoute: TrainerRoute,
 }
