@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Logo } from "@/components/Logo";
 import logo from "@/assets/titan-logo.png.asset.json";
-import { ShieldCheck, GraduationCap, UserRound, ArrowRight } from "lucide-react";
+import { ShieldCheck, GraduationCap, UserRound, ArrowRight, Crown } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Landing,

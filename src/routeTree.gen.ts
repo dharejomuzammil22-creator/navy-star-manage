@@ -21,9 +21,25 @@ import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as TrainerProfileRouteImport } from './routes/trainer.profile'
 import { Route as TrainerCalendarRouteImport } from './routes/trainer.calendar'
 import { Route as TrainerAttendanceRouteImport } from './routes/trainer.attendance'
+import { Route as SuperAdminUsersRouteImport } from './routes/super-admin.users'
 import { Route as SuperAdminTrainersRouteImport } from './routes/super-admin.trainers'
+import { Route as SuperAdminTrainerAttendanceRouteImport } from './routes/super-admin.trainer-attendance'
 import { Route as SuperAdminStudentsRouteImport } from './routes/super-admin.students'
+import { Route as SuperAdminSlotsRouteImport } from './routes/super-admin.slots'
+import { Route as SuperAdminSettingsRouteImport } from './routes/super-admin.settings'
+import { Route as SuperAdminRolesRouteImport } from './routes/super-admin.roles'
+import { Route as SuperAdminReportsRouteImport } from './routes/super-admin.reports'
+import { Route as SuperAdminRegistrationsRouteImport } from './routes/super-admin.registrations'
 import { Route as SuperAdminProfileRouteImport } from './routes/super-admin.profile'
+import { Route as SuperAdminPaymentsRouteImport } from './routes/super-admin.payments'
+import { Route as SuperAdminNotificationsRouteImport } from './routes/super-admin.notifications'
+import { Route as SuperAdminCoursesRouteImport } from './routes/super-admin.courses'
+import { Route as SuperAdminCitiesRouteImport } from './routes/super-admin.cities'
+import { Route as SuperAdminCampusesRouteImport } from './routes/super-admin.campuses'
+import { Route as SuperAdminBatchesRouteImport } from './routes/super-admin.batches'
+import { Route as SuperAdminAttendanceRouteImport } from './routes/super-admin.attendance'
+import { Route as SuperAdminAdministrationRouteImport } from './routes/super-admin.administration'
+import { Route as SuperAdminActivityRouteImport } from './routes/super-admin.activity'
 import { Route as StudentQuizRouteImport } from './routes/student.quiz'
 import { Route as StudentProgressRouteImport } from './routes/student.progress'
 import { Route as StudentProfileRouteImport } from './routes/student.profile'
@@ -97,19 +113,101 @@ const TrainerAttendanceRoute = TrainerAttendanceRouteImport.update({
   path: '/attendance',
   getParentRoute: () => TrainerRoute,
 } as any)
+const SuperAdminUsersRoute = SuperAdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => SuperAdminRoute,
+} as any)
 const SuperAdminTrainersRoute = SuperAdminTrainersRouteImport.update({
   id: '/trainers',
   path: '/trainers',
   getParentRoute: () => SuperAdminRoute,
 } as any)
+const SuperAdminTrainerAttendanceRoute =
+  SuperAdminTrainerAttendanceRouteImport.update({
+    id: '/trainer-attendance',
+    path: '/trainer-attendance',
+    getParentRoute: () => SuperAdminRoute,
+  } as any)
 const SuperAdminStudentsRoute = SuperAdminStudentsRouteImport.update({
   id: '/students',
   path: '/students',
   getParentRoute: () => SuperAdminRoute,
 } as any)
+const SuperAdminSlotsRoute = SuperAdminSlotsRouteImport.update({
+  id: '/slots',
+  path: '/slots',
+  getParentRoute: () => SuperAdminRoute,
+} as any)
+const SuperAdminSettingsRoute = SuperAdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => SuperAdminRoute,
+} as any)
+const SuperAdminRolesRoute = SuperAdminRolesRouteImport.update({
+  id: '/roles',
+  path: '/roles',
+  getParentRoute: () => SuperAdminRoute,
+} as any)
+const SuperAdminReportsRoute = SuperAdminReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => SuperAdminRoute,
+} as any)
+const SuperAdminRegistrationsRoute = SuperAdminRegistrationsRouteImport.update({
+  id: '/registrations',
+  path: '/registrations',
+  getParentRoute: () => SuperAdminRoute,
+} as any)
 const SuperAdminProfileRoute = SuperAdminProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => SuperAdminRoute,
+} as any)
+const SuperAdminPaymentsRoute = SuperAdminPaymentsRouteImport.update({
+  id: '/payments',
+  path: '/payments',
+  getParentRoute: () => SuperAdminRoute,
+} as any)
+const SuperAdminNotificationsRoute = SuperAdminNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => SuperAdminRoute,
+} as any)
+const SuperAdminCoursesRoute = SuperAdminCoursesRouteImport.update({
+  id: '/courses',
+  path: '/courses',
+  getParentRoute: () => SuperAdminRoute,
+} as any)
+const SuperAdminCitiesRoute = SuperAdminCitiesRouteImport.update({
+  id: '/cities',
+  path: '/cities',
+  getParentRoute: () => SuperAdminRoute,
+} as any)
+const SuperAdminCampusesRoute = SuperAdminCampusesRouteImport.update({
+  id: '/campuses',
+  path: '/campuses',
+  getParentRoute: () => SuperAdminRoute,
+} as any)
+const SuperAdminBatchesRoute = SuperAdminBatchesRouteImport.update({
+  id: '/batches',
+  path: '/batches',
+  getParentRoute: () => SuperAdminRoute,
+} as any)
+const SuperAdminAttendanceRoute = SuperAdminAttendanceRouteImport.update({
+  id: '/attendance',
+  path: '/attendance',
+  getParentRoute: () => SuperAdminRoute,
+} as any)
+const SuperAdminAdministrationRoute =
+  SuperAdminAdministrationRouteImport.update({
+    id: '/administration',
+    path: '/administration',
+    getParentRoute: () => SuperAdminRoute,
+  } as any)
+const SuperAdminActivityRoute = SuperAdminActivityRouteImport.update({
+  id: '/activity',
+  path: '/activity',
   getParentRoute: () => SuperAdminRoute,
 } as any)
 const StudentQuizRoute = StudentQuizRouteImport.update({
@@ -191,9 +289,25 @@ export interface FileRoutesByFullPath {
   '/student/profile': typeof StudentProfileRoute
   '/student/progress': typeof StudentProgressRoute
   '/student/quiz': typeof StudentQuizRoute
+  '/super-admin/activity': typeof SuperAdminActivityRoute
+  '/super-admin/administration': typeof SuperAdminAdministrationRoute
+  '/super-admin/attendance': typeof SuperAdminAttendanceRoute
+  '/super-admin/batches': typeof SuperAdminBatchesRoute
+  '/super-admin/campuses': typeof SuperAdminCampusesRoute
+  '/super-admin/cities': typeof SuperAdminCitiesRoute
+  '/super-admin/courses': typeof SuperAdminCoursesRoute
+  '/super-admin/notifications': typeof SuperAdminNotificationsRoute
+  '/super-admin/payments': typeof SuperAdminPaymentsRoute
   '/super-admin/profile': typeof SuperAdminProfileRoute
+  '/super-admin/registrations': typeof SuperAdminRegistrationsRoute
+  '/super-admin/reports': typeof SuperAdminReportsRoute
+  '/super-admin/roles': typeof SuperAdminRolesRoute
+  '/super-admin/settings': typeof SuperAdminSettingsRoute
+  '/super-admin/slots': typeof SuperAdminSlotsRoute
   '/super-admin/students': typeof SuperAdminStudentsRoute
+  '/super-admin/trainer-attendance': typeof SuperAdminTrainerAttendanceRoute
   '/super-admin/trainers': typeof SuperAdminTrainersRoute
+  '/super-admin/users': typeof SuperAdminUsersRoute
   '/trainer/attendance': typeof TrainerAttendanceRoute
   '/trainer/calendar': typeof TrainerCalendarRoute
   '/trainer/profile': typeof TrainerProfileRoute
@@ -216,9 +330,25 @@ export interface FileRoutesByTo {
   '/student/profile': typeof StudentProfileRoute
   '/student/progress': typeof StudentProgressRoute
   '/student/quiz': typeof StudentQuizRoute
+  '/super-admin/activity': typeof SuperAdminActivityRoute
+  '/super-admin/administration': typeof SuperAdminAdministrationRoute
+  '/super-admin/attendance': typeof SuperAdminAttendanceRoute
+  '/super-admin/batches': typeof SuperAdminBatchesRoute
+  '/super-admin/campuses': typeof SuperAdminCampusesRoute
+  '/super-admin/cities': typeof SuperAdminCitiesRoute
+  '/super-admin/courses': typeof SuperAdminCoursesRoute
+  '/super-admin/notifications': typeof SuperAdminNotificationsRoute
+  '/super-admin/payments': typeof SuperAdminPaymentsRoute
   '/super-admin/profile': typeof SuperAdminProfileRoute
+  '/super-admin/registrations': typeof SuperAdminRegistrationsRoute
+  '/super-admin/reports': typeof SuperAdminReportsRoute
+  '/super-admin/roles': typeof SuperAdminRolesRoute
+  '/super-admin/settings': typeof SuperAdminSettingsRoute
+  '/super-admin/slots': typeof SuperAdminSlotsRoute
   '/super-admin/students': typeof SuperAdminStudentsRoute
+  '/super-admin/trainer-attendance': typeof SuperAdminTrainerAttendanceRoute
   '/super-admin/trainers': typeof SuperAdminTrainersRoute
+  '/super-admin/users': typeof SuperAdminUsersRoute
   '/trainer/attendance': typeof TrainerAttendanceRoute
   '/trainer/calendar': typeof TrainerCalendarRoute
   '/trainer/profile': typeof TrainerProfileRoute
@@ -246,9 +376,25 @@ export interface FileRoutesById {
   '/student/profile': typeof StudentProfileRoute
   '/student/progress': typeof StudentProgressRoute
   '/student/quiz': typeof StudentQuizRoute
+  '/super-admin/activity': typeof SuperAdminActivityRoute
+  '/super-admin/administration': typeof SuperAdminAdministrationRoute
+  '/super-admin/attendance': typeof SuperAdminAttendanceRoute
+  '/super-admin/batches': typeof SuperAdminBatchesRoute
+  '/super-admin/campuses': typeof SuperAdminCampusesRoute
+  '/super-admin/cities': typeof SuperAdminCitiesRoute
+  '/super-admin/courses': typeof SuperAdminCoursesRoute
+  '/super-admin/notifications': typeof SuperAdminNotificationsRoute
+  '/super-admin/payments': typeof SuperAdminPaymentsRoute
   '/super-admin/profile': typeof SuperAdminProfileRoute
+  '/super-admin/registrations': typeof SuperAdminRegistrationsRoute
+  '/super-admin/reports': typeof SuperAdminReportsRoute
+  '/super-admin/roles': typeof SuperAdminRolesRoute
+  '/super-admin/settings': typeof SuperAdminSettingsRoute
+  '/super-admin/slots': typeof SuperAdminSlotsRoute
   '/super-admin/students': typeof SuperAdminStudentsRoute
+  '/super-admin/trainer-attendance': typeof SuperAdminTrainerAttendanceRoute
   '/super-admin/trainers': typeof SuperAdminTrainersRoute
+  '/super-admin/users': typeof SuperAdminUsersRoute
   '/trainer/attendance': typeof TrainerAttendanceRoute
   '/trainer/calendar': typeof TrainerCalendarRoute
   '/trainer/profile': typeof TrainerProfileRoute
@@ -277,9 +423,25 @@ export interface FileRouteTypes {
     | '/student/profile'
     | '/student/progress'
     | '/student/quiz'
+    | '/super-admin/activity'
+    | '/super-admin/administration'
+    | '/super-admin/attendance'
+    | '/super-admin/batches'
+    | '/super-admin/campuses'
+    | '/super-admin/cities'
+    | '/super-admin/courses'
+    | '/super-admin/notifications'
+    | '/super-admin/payments'
     | '/super-admin/profile'
+    | '/super-admin/registrations'
+    | '/super-admin/reports'
+    | '/super-admin/roles'
+    | '/super-admin/settings'
+    | '/super-admin/slots'
     | '/super-admin/students'
+    | '/super-admin/trainer-attendance'
     | '/super-admin/trainers'
+    | '/super-admin/users'
     | '/trainer/attendance'
     | '/trainer/calendar'
     | '/trainer/profile'
@@ -302,9 +464,25 @@ export interface FileRouteTypes {
     | '/student/profile'
     | '/student/progress'
     | '/student/quiz'
+    | '/super-admin/activity'
+    | '/super-admin/administration'
+    | '/super-admin/attendance'
+    | '/super-admin/batches'
+    | '/super-admin/campuses'
+    | '/super-admin/cities'
+    | '/super-admin/courses'
+    | '/super-admin/notifications'
+    | '/super-admin/payments'
     | '/super-admin/profile'
+    | '/super-admin/registrations'
+    | '/super-admin/reports'
+    | '/super-admin/roles'
+    | '/super-admin/settings'
+    | '/super-admin/slots'
     | '/super-admin/students'
+    | '/super-admin/trainer-attendance'
     | '/super-admin/trainers'
+    | '/super-admin/users'
     | '/trainer/attendance'
     | '/trainer/calendar'
     | '/trainer/profile'
@@ -331,9 +509,25 @@ export interface FileRouteTypes {
     | '/student/profile'
     | '/student/progress'
     | '/student/quiz'
+    | '/super-admin/activity'
+    | '/super-admin/administration'
+    | '/super-admin/attendance'
+    | '/super-admin/batches'
+    | '/super-admin/campuses'
+    | '/super-admin/cities'
+    | '/super-admin/courses'
+    | '/super-admin/notifications'
+    | '/super-admin/payments'
     | '/super-admin/profile'
+    | '/super-admin/registrations'
+    | '/super-admin/reports'
+    | '/super-admin/roles'
+    | '/super-admin/settings'
+    | '/super-admin/slots'
     | '/super-admin/students'
+    | '/super-admin/trainer-attendance'
     | '/super-admin/trainers'
+    | '/super-admin/users'
     | '/trainer/attendance'
     | '/trainer/calendar'
     | '/trainer/profile'
@@ -437,11 +631,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TrainerAttendanceRouteImport
       parentRoute: typeof TrainerRoute
     }
+    '/super-admin/users': {
+      id: '/super-admin/users'
+      path: '/users'
+      fullPath: '/super-admin/users'
+      preLoaderRoute: typeof SuperAdminUsersRouteImport
+      parentRoute: typeof SuperAdminRoute
+    }
     '/super-admin/trainers': {
       id: '/super-admin/trainers'
       path: '/trainers'
       fullPath: '/super-admin/trainers'
       preLoaderRoute: typeof SuperAdminTrainersRouteImport
+      parentRoute: typeof SuperAdminRoute
+    }
+    '/super-admin/trainer-attendance': {
+      id: '/super-admin/trainer-attendance'
+      path: '/trainer-attendance'
+      fullPath: '/super-admin/trainer-attendance'
+      preLoaderRoute: typeof SuperAdminTrainerAttendanceRouteImport
       parentRoute: typeof SuperAdminRoute
     }
     '/super-admin/students': {
@@ -451,11 +659,109 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SuperAdminStudentsRouteImport
       parentRoute: typeof SuperAdminRoute
     }
+    '/super-admin/slots': {
+      id: '/super-admin/slots'
+      path: '/slots'
+      fullPath: '/super-admin/slots'
+      preLoaderRoute: typeof SuperAdminSlotsRouteImport
+      parentRoute: typeof SuperAdminRoute
+    }
+    '/super-admin/settings': {
+      id: '/super-admin/settings'
+      path: '/settings'
+      fullPath: '/super-admin/settings'
+      preLoaderRoute: typeof SuperAdminSettingsRouteImport
+      parentRoute: typeof SuperAdminRoute
+    }
+    '/super-admin/roles': {
+      id: '/super-admin/roles'
+      path: '/roles'
+      fullPath: '/super-admin/roles'
+      preLoaderRoute: typeof SuperAdminRolesRouteImport
+      parentRoute: typeof SuperAdminRoute
+    }
+    '/super-admin/reports': {
+      id: '/super-admin/reports'
+      path: '/reports'
+      fullPath: '/super-admin/reports'
+      preLoaderRoute: typeof SuperAdminReportsRouteImport
+      parentRoute: typeof SuperAdminRoute
+    }
+    '/super-admin/registrations': {
+      id: '/super-admin/registrations'
+      path: '/registrations'
+      fullPath: '/super-admin/registrations'
+      preLoaderRoute: typeof SuperAdminRegistrationsRouteImport
+      parentRoute: typeof SuperAdminRoute
+    }
     '/super-admin/profile': {
       id: '/super-admin/profile'
       path: '/profile'
       fullPath: '/super-admin/profile'
       preLoaderRoute: typeof SuperAdminProfileRouteImport
+      parentRoute: typeof SuperAdminRoute
+    }
+    '/super-admin/payments': {
+      id: '/super-admin/payments'
+      path: '/payments'
+      fullPath: '/super-admin/payments'
+      preLoaderRoute: typeof SuperAdminPaymentsRouteImport
+      parentRoute: typeof SuperAdminRoute
+    }
+    '/super-admin/notifications': {
+      id: '/super-admin/notifications'
+      path: '/notifications'
+      fullPath: '/super-admin/notifications'
+      preLoaderRoute: typeof SuperAdminNotificationsRouteImport
+      parentRoute: typeof SuperAdminRoute
+    }
+    '/super-admin/courses': {
+      id: '/super-admin/courses'
+      path: '/courses'
+      fullPath: '/super-admin/courses'
+      preLoaderRoute: typeof SuperAdminCoursesRouteImport
+      parentRoute: typeof SuperAdminRoute
+    }
+    '/super-admin/cities': {
+      id: '/super-admin/cities'
+      path: '/cities'
+      fullPath: '/super-admin/cities'
+      preLoaderRoute: typeof SuperAdminCitiesRouteImport
+      parentRoute: typeof SuperAdminRoute
+    }
+    '/super-admin/campuses': {
+      id: '/super-admin/campuses'
+      path: '/campuses'
+      fullPath: '/super-admin/campuses'
+      preLoaderRoute: typeof SuperAdminCampusesRouteImport
+      parentRoute: typeof SuperAdminRoute
+    }
+    '/super-admin/batches': {
+      id: '/super-admin/batches'
+      path: '/batches'
+      fullPath: '/super-admin/batches'
+      preLoaderRoute: typeof SuperAdminBatchesRouteImport
+      parentRoute: typeof SuperAdminRoute
+    }
+    '/super-admin/attendance': {
+      id: '/super-admin/attendance'
+      path: '/attendance'
+      fullPath: '/super-admin/attendance'
+      preLoaderRoute: typeof SuperAdminAttendanceRouteImport
+      parentRoute: typeof SuperAdminRoute
+    }
+    '/super-admin/administration': {
+      id: '/super-admin/administration'
+      path: '/administration'
+      fullPath: '/super-admin/administration'
+      preLoaderRoute: typeof SuperAdminAdministrationRouteImport
+      parentRoute: typeof SuperAdminRoute
+    }
+    '/super-admin/activity': {
+      id: '/super-admin/activity'
+      path: '/activity'
+      fullPath: '/super-admin/activity'
+      preLoaderRoute: typeof SuperAdminActivityRouteImport
       parentRoute: typeof SuperAdminRoute
     }
     '/student/quiz': {
@@ -591,16 +897,48 @@ const StudentRouteWithChildren =
   StudentRoute._addFileChildren(StudentRouteChildren)
 
 interface SuperAdminRouteChildren {
+  SuperAdminActivityRoute: typeof SuperAdminActivityRoute
+  SuperAdminAdministrationRoute: typeof SuperAdminAdministrationRoute
+  SuperAdminAttendanceRoute: typeof SuperAdminAttendanceRoute
+  SuperAdminBatchesRoute: typeof SuperAdminBatchesRoute
+  SuperAdminCampusesRoute: typeof SuperAdminCampusesRoute
+  SuperAdminCitiesRoute: typeof SuperAdminCitiesRoute
+  SuperAdminCoursesRoute: typeof SuperAdminCoursesRoute
+  SuperAdminNotificationsRoute: typeof SuperAdminNotificationsRoute
+  SuperAdminPaymentsRoute: typeof SuperAdminPaymentsRoute
   SuperAdminProfileRoute: typeof SuperAdminProfileRoute
+  SuperAdminRegistrationsRoute: typeof SuperAdminRegistrationsRoute
+  SuperAdminReportsRoute: typeof SuperAdminReportsRoute
+  SuperAdminRolesRoute: typeof SuperAdminRolesRoute
+  SuperAdminSettingsRoute: typeof SuperAdminSettingsRoute
+  SuperAdminSlotsRoute: typeof SuperAdminSlotsRoute
   SuperAdminStudentsRoute: typeof SuperAdminStudentsRoute
+  SuperAdminTrainerAttendanceRoute: typeof SuperAdminTrainerAttendanceRoute
   SuperAdminTrainersRoute: typeof SuperAdminTrainersRoute
+  SuperAdminUsersRoute: typeof SuperAdminUsersRoute
   SuperAdminIndexRoute: typeof SuperAdminIndexRoute
 }
 
 const SuperAdminRouteChildren: SuperAdminRouteChildren = {
+  SuperAdminActivityRoute: SuperAdminActivityRoute,
+  SuperAdminAdministrationRoute: SuperAdminAdministrationRoute,
+  SuperAdminAttendanceRoute: SuperAdminAttendanceRoute,
+  SuperAdminBatchesRoute: SuperAdminBatchesRoute,
+  SuperAdminCampusesRoute: SuperAdminCampusesRoute,
+  SuperAdminCitiesRoute: SuperAdminCitiesRoute,
+  SuperAdminCoursesRoute: SuperAdminCoursesRoute,
+  SuperAdminNotificationsRoute: SuperAdminNotificationsRoute,
+  SuperAdminPaymentsRoute: SuperAdminPaymentsRoute,
   SuperAdminProfileRoute: SuperAdminProfileRoute,
+  SuperAdminRegistrationsRoute: SuperAdminRegistrationsRoute,
+  SuperAdminReportsRoute: SuperAdminReportsRoute,
+  SuperAdminRolesRoute: SuperAdminRolesRoute,
+  SuperAdminSettingsRoute: SuperAdminSettingsRoute,
+  SuperAdminSlotsRoute: SuperAdminSlotsRoute,
   SuperAdminStudentsRoute: SuperAdminStudentsRoute,
+  SuperAdminTrainerAttendanceRoute: SuperAdminTrainerAttendanceRoute,
   SuperAdminTrainersRoute: SuperAdminTrainersRoute,
+  SuperAdminUsersRoute: SuperAdminUsersRoute,
   SuperAdminIndexRoute: SuperAdminIndexRoute,
 }
 
