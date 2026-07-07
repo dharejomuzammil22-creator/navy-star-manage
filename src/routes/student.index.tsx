@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHeader, StatCard, SectionCard, StatusBadge } from "@/components/ui-bits";
 import { ClipboardCheck, FileText, Trophy } from "lucide-react";
 import { studentSchedule, vouchers, assignments } from "@/lib/mock-data";
@@ -13,9 +13,15 @@ function StudentDashboard() {
       <PageHeader title="Assalam-o-Alaikum, Hassan" subtitle="Web & Mobile App · Batch 3 · Karachi Main" />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <StatCard label="Attendance" value="65 / 80" hint="81% present" icon={<ClipboardCheck className="h-5 w-5" />} tone="success" />
-        <StatCard label="Assignments" value="9 / 13" hint="4 pending" icon={<FileText className="h-5 w-5" />} />
-        <StatCard label="Course Progress" value="62%" hint="On track" icon={<Trophy className="h-5 w-5" />} tone="gold" />
+        <Link to="/student/attendance" className="block hover:-translate-y-0.5 transition-transform">
+          <StatCard label="Attendance" value="65 / 80" hint="81% present · view details →" icon={<ClipboardCheck className="h-5 w-5" />} tone="success" />
+        </Link>
+        <Link to="/student/assignment" className="block hover:-translate-y-0.5 transition-transform">
+          <StatCard label="Assignments" value="9 / 13" hint="4 pending · open list →" icon={<FileText className="h-5 w-5" />} />
+        </Link>
+        <Link to="/student/progress" className="block hover:-translate-y-0.5 transition-transform">
+          <StatCard label="Course Progress" value="62%" hint="On track · view topics →" icon={<Trophy className="h-5 w-5" />} tone="gold" />
+        </Link>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">
@@ -65,6 +71,9 @@ function StudentDashboard() {
               </li>
             ))}
           </ul>
+          <Link to="/student/payment" className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline">
+            View all vouchers →
+          </Link>
         </SectionCard>
       </div>
     </>
