@@ -96,9 +96,9 @@ export const trainers = Array.from({ length: 12 }).map((_, i) => ({
 }));
 
 export const vouchers = [
-  { id: "V-90121", type: "Registration", month: "—", due: "2026-06-15", amount: 500, status: "Paid" },
-  { id: "V-90122", type: "Monthly", month: "June 2026", due: "2026-06-25", amount: 2500, status: "Paid" },
-  { id: "V-90123", type: "Monthly", month: "July 2026", due: "2026-07-25", amount: 2500, status: "Pending" },
+  { id: "V-90121", type: "Registration", month: "—", due: "2026-06-15", amount: 1000, status: "Paid" },
+  { id: "V-90122", type: "Monthly", month: "June 2026", due: "2026-06-25", amount: 1000, status: "Paid" },
+  { id: "V-90123", type: "Monthly", month: "July 2026", due: "2026-07-25", amount: 1000, status: "Pending" },
 ];
 
 export const assignments = [
