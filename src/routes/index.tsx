@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Logo } from "@/components/Logo";
 import logo from "@/assets/titan-logo.png.asset.json";
-import { ShieldCheck, GraduationCap, UserRound, ArrowRight } from "lucide-react";
+import { ShieldCheck, GraduationCap, UserRound, ArrowRight, Crown } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Landing,
@@ -49,6 +49,13 @@ function Landing() {
             </p>
 
             <div className="mt-8 space-y-3">
+              <PortalCard
+                to="/super-admin"
+                icon={<Crown className="h-5 w-5" />}
+                title="Super Admin"
+                desc="Full control · every module, every campus, every role"
+                accent
+              />
               <PortalCard
                 to="/admin"
                 icon={<ShieldCheck className="h-5 w-5" />}
