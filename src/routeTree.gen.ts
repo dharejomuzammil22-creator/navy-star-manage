@@ -22,6 +22,7 @@ import { Route as TrainerProfileRouteImport } from './routes/trainer.profile'
 import { Route as TrainerCalendarRouteImport } from './routes/trainer.calendar'
 import { Route as TrainerAttendanceRouteImport } from './routes/trainer.attendance'
 import { Route as SuperAdminUsersRouteImport } from './routes/super-admin.users'
+import { Route as SuperAdminUpdationRouteImport } from './routes/super-admin.updation'
 import { Route as SuperAdminTrainersRouteImport } from './routes/super-admin.trainers'
 import { Route as SuperAdminTrainerAttendanceRouteImport } from './routes/super-admin.trainer-attendance'
 import { Route as SuperAdminStudentsRouteImport } from './routes/super-admin.students'
@@ -52,6 +53,7 @@ import { Route as AdminStudentsRouteImport } from './routes/admin.students'
 import { Route as AdminSlotsRouteImport } from './routes/admin.slots'
 import { Route as AdminProfileRouteImport } from './routes/admin.profile'
 import { Route as AdminAttendanceRouteImport } from './routes/admin.attendance'
+import { Route as SuperAdminAttendanceViewRouteImport } from './routes/super-admin.attendance.view'
 
 const TrainerRoute = TrainerRouteImport.update({
   id: '/trainer',
@@ -116,6 +118,11 @@ const TrainerAttendanceRoute = TrainerAttendanceRouteImport.update({
 const SuperAdminUsersRoute = SuperAdminUsersRouteImport.update({
   id: '/users',
   path: '/users',
+  getParentRoute: () => SuperAdminRoute,
+} as any)
+const SuperAdminUpdationRoute = SuperAdminUpdationRouteImport.update({
+  id: '/updation',
+  path: '/updation',
   getParentRoute: () => SuperAdminRoute,
 } as any)
 const SuperAdminTrainersRoute = SuperAdminTrainersRouteImport.update({
@@ -270,6 +277,12 @@ const AdminAttendanceRoute = AdminAttendanceRouteImport.update({
   path: '/attendance',
   getParentRoute: () => AdminRoute,
 } as any)
+const SuperAdminAttendanceViewRoute =
+  SuperAdminAttendanceViewRouteImport.update({
+    id: '/view',
+    path: '/view',
+    getParentRoute: () => SuperAdminAttendanceRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -291,7 +304,7 @@ export interface FileRoutesByFullPath {
   '/student/quiz': typeof StudentQuizRoute
   '/super-admin/activity': typeof SuperAdminActivityRoute
   '/super-admin/administration': typeof SuperAdminAdministrationRoute
-  '/super-admin/attendance': typeof SuperAdminAttendanceRoute
+  '/super-admin/attendance': typeof SuperAdminAttendanceRouteWithChildren
   '/super-admin/batches': typeof SuperAdminBatchesRoute
   '/super-admin/campuses': typeof SuperAdminCampusesRoute
   '/super-admin/cities': typeof SuperAdminCitiesRoute
@@ -307,6 +320,7 @@ export interface FileRoutesByFullPath {
   '/super-admin/students': typeof SuperAdminStudentsRoute
   '/super-admin/trainer-attendance': typeof SuperAdminTrainerAttendanceRoute
   '/super-admin/trainers': typeof SuperAdminTrainersRoute
+  '/super-admin/updation': typeof SuperAdminUpdationRoute
   '/super-admin/users': typeof SuperAdminUsersRoute
   '/trainer/attendance': typeof TrainerAttendanceRoute
   '/trainer/calendar': typeof TrainerCalendarRoute
@@ -315,6 +329,7 @@ export interface FileRoutesByFullPath {
   '/student/': typeof StudentIndexRoute
   '/super-admin/': typeof SuperAdminIndexRoute
   '/trainer/': typeof TrainerIndexRoute
+  '/super-admin/attendance/view': typeof SuperAdminAttendanceViewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -332,7 +347,7 @@ export interface FileRoutesByTo {
   '/student/quiz': typeof StudentQuizRoute
   '/super-admin/activity': typeof SuperAdminActivityRoute
   '/super-admin/administration': typeof SuperAdminAdministrationRoute
-  '/super-admin/attendance': typeof SuperAdminAttendanceRoute
+  '/super-admin/attendance': typeof SuperAdminAttendanceRouteWithChildren
   '/super-admin/batches': typeof SuperAdminBatchesRoute
   '/super-admin/campuses': typeof SuperAdminCampusesRoute
   '/super-admin/cities': typeof SuperAdminCitiesRoute
@@ -348,6 +363,7 @@ export interface FileRoutesByTo {
   '/super-admin/students': typeof SuperAdminStudentsRoute
   '/super-admin/trainer-attendance': typeof SuperAdminTrainerAttendanceRoute
   '/super-admin/trainers': typeof SuperAdminTrainersRoute
+  '/super-admin/updation': typeof SuperAdminUpdationRoute
   '/super-admin/users': typeof SuperAdminUsersRoute
   '/trainer/attendance': typeof TrainerAttendanceRoute
   '/trainer/calendar': typeof TrainerCalendarRoute
@@ -356,6 +372,7 @@ export interface FileRoutesByTo {
   '/student': typeof StudentIndexRoute
   '/super-admin': typeof SuperAdminIndexRoute
   '/trainer': typeof TrainerIndexRoute
+  '/super-admin/attendance/view': typeof SuperAdminAttendanceViewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -378,7 +395,7 @@ export interface FileRoutesById {
   '/student/quiz': typeof StudentQuizRoute
   '/super-admin/activity': typeof SuperAdminActivityRoute
   '/super-admin/administration': typeof SuperAdminAdministrationRoute
-  '/super-admin/attendance': typeof SuperAdminAttendanceRoute
+  '/super-admin/attendance': typeof SuperAdminAttendanceRouteWithChildren
   '/super-admin/batches': typeof SuperAdminBatchesRoute
   '/super-admin/campuses': typeof SuperAdminCampusesRoute
   '/super-admin/cities': typeof SuperAdminCitiesRoute
@@ -394,6 +411,7 @@ export interface FileRoutesById {
   '/super-admin/students': typeof SuperAdminStudentsRoute
   '/super-admin/trainer-attendance': typeof SuperAdminTrainerAttendanceRoute
   '/super-admin/trainers': typeof SuperAdminTrainersRoute
+  '/super-admin/updation': typeof SuperAdminUpdationRoute
   '/super-admin/users': typeof SuperAdminUsersRoute
   '/trainer/attendance': typeof TrainerAttendanceRoute
   '/trainer/calendar': typeof TrainerCalendarRoute
@@ -402,6 +420,7 @@ export interface FileRoutesById {
   '/student/': typeof StudentIndexRoute
   '/super-admin/': typeof SuperAdminIndexRoute
   '/trainer/': typeof TrainerIndexRoute
+  '/super-admin/attendance/view': typeof SuperAdminAttendanceViewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -441,6 +460,7 @@ export interface FileRouteTypes {
     | '/super-admin/students'
     | '/super-admin/trainer-attendance'
     | '/super-admin/trainers'
+    | '/super-admin/updation'
     | '/super-admin/users'
     | '/trainer/attendance'
     | '/trainer/calendar'
@@ -449,6 +469,7 @@ export interface FileRouteTypes {
     | '/student/'
     | '/super-admin/'
     | '/trainer/'
+    | '/super-admin/attendance/view'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -482,6 +503,7 @@ export interface FileRouteTypes {
     | '/super-admin/students'
     | '/super-admin/trainer-attendance'
     | '/super-admin/trainers'
+    | '/super-admin/updation'
     | '/super-admin/users'
     | '/trainer/attendance'
     | '/trainer/calendar'
@@ -490,6 +512,7 @@ export interface FileRouteTypes {
     | '/student'
     | '/super-admin'
     | '/trainer'
+    | '/super-admin/attendance/view'
   id:
     | '__root__'
     | '/'
@@ -527,6 +550,7 @@ export interface FileRouteTypes {
     | '/super-admin/students'
     | '/super-admin/trainer-attendance'
     | '/super-admin/trainers'
+    | '/super-admin/updation'
     | '/super-admin/users'
     | '/trainer/attendance'
     | '/trainer/calendar'
@@ -535,6 +559,7 @@ export interface FileRouteTypes {
     | '/student/'
     | '/super-admin/'
     | '/trainer/'
+    | '/super-admin/attendance/view'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -636,6 +661,13 @@ declare module '@tanstack/react-router' {
       path: '/users'
       fullPath: '/super-admin/users'
       preLoaderRoute: typeof SuperAdminUsersRouteImport
+      parentRoute: typeof SuperAdminRoute
+    }
+    '/super-admin/updation': {
+      id: '/super-admin/updation'
+      path: '/updation'
+      fullPath: '/super-admin/updation'
+      preLoaderRoute: typeof SuperAdminUpdationRouteImport
       parentRoute: typeof SuperAdminRoute
     }
     '/super-admin/trainers': {
@@ -848,6 +880,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAttendanceRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/super-admin/attendance/view': {
+      id: '/super-admin/attendance/view'
+      path: '/view'
+      fullPath: '/super-admin/attendance/view'
+      preLoaderRoute: typeof SuperAdminAttendanceViewRouteImport
+      parentRoute: typeof SuperAdminAttendanceRoute
+    }
   }
 }
 
@@ -896,10 +935,21 @@ const StudentRouteChildren: StudentRouteChildren = {
 const StudentRouteWithChildren =
   StudentRoute._addFileChildren(StudentRouteChildren)
 
+interface SuperAdminAttendanceRouteChildren {
+  SuperAdminAttendanceViewRoute: typeof SuperAdminAttendanceViewRoute
+}
+
+const SuperAdminAttendanceRouteChildren: SuperAdminAttendanceRouteChildren = {
+  SuperAdminAttendanceViewRoute: SuperAdminAttendanceViewRoute,
+}
+
+const SuperAdminAttendanceRouteWithChildren =
+  SuperAdminAttendanceRoute._addFileChildren(SuperAdminAttendanceRouteChildren)
+
 interface SuperAdminRouteChildren {
   SuperAdminActivityRoute: typeof SuperAdminActivityRoute
   SuperAdminAdministrationRoute: typeof SuperAdminAdministrationRoute
-  SuperAdminAttendanceRoute: typeof SuperAdminAttendanceRoute
+  SuperAdminAttendanceRoute: typeof SuperAdminAttendanceRouteWithChildren
   SuperAdminBatchesRoute: typeof SuperAdminBatchesRoute
   SuperAdminCampusesRoute: typeof SuperAdminCampusesRoute
   SuperAdminCitiesRoute: typeof SuperAdminCitiesRoute
@@ -915,6 +965,7 @@ interface SuperAdminRouteChildren {
   SuperAdminStudentsRoute: typeof SuperAdminStudentsRoute
   SuperAdminTrainerAttendanceRoute: typeof SuperAdminTrainerAttendanceRoute
   SuperAdminTrainersRoute: typeof SuperAdminTrainersRoute
+  SuperAdminUpdationRoute: typeof SuperAdminUpdationRoute
   SuperAdminUsersRoute: typeof SuperAdminUsersRoute
   SuperAdminIndexRoute: typeof SuperAdminIndexRoute
 }
@@ -922,7 +973,7 @@ interface SuperAdminRouteChildren {
 const SuperAdminRouteChildren: SuperAdminRouteChildren = {
   SuperAdminActivityRoute: SuperAdminActivityRoute,
   SuperAdminAdministrationRoute: SuperAdminAdministrationRoute,
-  SuperAdminAttendanceRoute: SuperAdminAttendanceRoute,
+  SuperAdminAttendanceRoute: SuperAdminAttendanceRouteWithChildren,
   SuperAdminBatchesRoute: SuperAdminBatchesRoute,
   SuperAdminCampusesRoute: SuperAdminCampusesRoute,
   SuperAdminCitiesRoute: SuperAdminCitiesRoute,
@@ -938,6 +989,7 @@ const SuperAdminRouteChildren: SuperAdminRouteChildren = {
   SuperAdminStudentsRoute: SuperAdminStudentsRoute,
   SuperAdminTrainerAttendanceRoute: SuperAdminTrainerAttendanceRoute,
   SuperAdminTrainersRoute: SuperAdminTrainersRoute,
+  SuperAdminUpdationRoute: SuperAdminUpdationRoute,
   SuperAdminUsersRoute: SuperAdminUsersRoute,
   SuperAdminIndexRoute: SuperAdminIndexRoute,
 }
@@ -973,13 +1025,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
