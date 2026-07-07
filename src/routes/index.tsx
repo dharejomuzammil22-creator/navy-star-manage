@@ -56,7 +56,7 @@ function Landing() {
                 desc="Full control · every module, every campus, every role"
                 accent
               />
-
+              <PortalCard
                 to="/admin"
                 icon={<ShieldCheck className="h-5 w-5" />}
                 title="Admin Panel"
