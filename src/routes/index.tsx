@@ -50,6 +50,13 @@ function Landing() {
 
             <div className="mt-8 space-y-3">
               <PortalCard
+                to="/super-admin"
+                icon={<Crown className="h-5 w-5" />}
+                title="Super Admin"
+                desc="Full control · every module, every campus, every role"
+                accent
+              />
+
                 to="/admin"
                 icon={<ShieldCheck className="h-5 w-5" />}
                 title="Admin Panel"
