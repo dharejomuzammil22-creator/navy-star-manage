@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { useRef, useState, type ReactNode } from "react";
+import { useRef, useState, type ChangeEvent, type ReactNode } from "react";
 import { Camera, Image as ImageIcon, KeyRound, LogOut, Pencil, ShieldCheck } from "lucide-react";
 import { Drawer } from "./Drawer";
 import { PageHeader, SectionCard } from "./ui-bits";
@@ -47,7 +47,7 @@ export function PortalProfile({
   const avatarRef = useRef<HTMLInputElement>(null);
   const bannerRef = useRef<HTMLInputElement>(null);
 
-  const pickImage = (event: React.ChangeEvent<HTMLInputElement>, setter: (value: string) => void) => {
+  const pickImage = (event: ChangeEvent<HTMLInputElement>, setter: (value: string) => void) => {
     const file = event.target.files?.[0];
     if (file) setter(URL.createObjectURL(file));
   };

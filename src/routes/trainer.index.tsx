@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHeader, StatCard, SectionCard } from "@/components/ui-bits";
 import { BookOpen, Users, ClipboardList } from "lucide-react";
 import { assignments } from "@/lib/mock-data";
@@ -59,7 +59,7 @@ function TrainerDashboard() {
             </div>
             <div className="mt-4 flex items-center justify-between text-sm">
               <span className="text-muted-foreground">{c.students} students</span>
-              <button className="text-primary hover:underline">Open →</button>
+              <Link to="/trainer/attendance" className="text-primary hover:underline">Open →</Link>
             </div>
           </div>
         ))}

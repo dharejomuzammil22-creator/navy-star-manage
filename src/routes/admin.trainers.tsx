@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { PageHeader } from "@/components/ui-bits";
 import { trainers } from "@/lib/mock-data";
 import { Plus, Mail, Phone } from "lucide-react";
@@ -8,17 +9,22 @@ export const Route = createFileRoute("/admin/trainers")({
 });
 
 function TrainersPage() {
+  const [message, setMessage] = useState<string | null>(null);
   return (
     <>
       <PageHeader
         title="Trainers"
         subtitle={`${trainers.length} trainers · across all campuses`}
         actions={
-          <button className="inline-flex items-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm">
+          <button
+            onClick={() => setMessage("Add trainer form opened in demo mode.")}
+            className="inline-flex items-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm"
+          >
             <Plus className="h-4 w-4" /> Add Trainer
           </button>
         }
       />
+      {message && <div className="mb-4 rounded-md border border-success/30 bg-success/10 px-4 py-2 text-sm text-success">{message}</div>}
       <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
         {trainers.map((t) => (
           <div key={t.id} className="rounded-xl border border-border bg-card p-5">

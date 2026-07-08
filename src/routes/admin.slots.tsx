@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { PageHeader, StatusBadge } from "@/components/ui-bits";
 import { slots } from "@/lib/mock-data";
 import { Plus, CalendarClock } from "lucide-react";
@@ -8,17 +9,22 @@ export const Route = createFileRoute("/admin/slots")({
 });
 
 function SlotsPage() {
+  const [message, setMessage] = useState<string | null>(null);
   return (
     <>
       <PageHeader
         title="Slots"
         subtitle="Class groups — one course, one trainer, one campus."
         actions={
-          <button className="inline-flex items-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm">
+          <button
+            onClick={() => setMessage("Add slot form opened in demo mode.")}
+            className="inline-flex items-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm"
+          >
             <Plus className="h-4 w-4" /> Add Slot
           </button>
         }
       />
+      {message && <div className="mb-4 rounded-md border border-success/30 bg-success/10 px-4 py-2 text-sm text-success">{message}</div>}
       <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
         {slots.map((s) => {
           const pct = Math.round((s.seatsUsed / s.seatsTotal) * 100);
