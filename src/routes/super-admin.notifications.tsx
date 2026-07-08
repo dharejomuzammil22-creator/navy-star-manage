@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { SuperPage } from "@/components/SuperPage";
 import { SectionCard } from "@/components/ui-bits";
 import { Bell, Send } from "lucide-react";
@@ -12,16 +13,25 @@ const items = [
 ];
 
 export const Route = createFileRoute("/super-admin/notifications")({
-  component: () => (
+  component: NotificationsPage,
+});
+
+function NotificationsPage() {
+  const [message, setMessage] = useState<string | null>(null);
+  return (
     <SuperPage
       title="Notifications"
       subtitle="System alerts & broadcasts"
       actions={
-        <button className="inline-flex items-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm hover:bg-primary/90">
+        <button
+          onClick={() => setMessage("Broadcast composer opened in demo mode.")}
+          className="inline-flex items-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm hover:bg-primary/90"
+        >
           <Send className="h-4 w-4" /> Send Broadcast
         </button>
       }
     >
+      {message && <div className="mb-4 rounded-md border border-success/30 bg-success/10 px-4 py-2 text-sm text-success">{message}</div>}
       <SectionCard title="Inbox">
         <ul className="divide-y divide-border">
           {items.map((n, i) => (
@@ -44,5 +54,5 @@ export const Route = createFileRoute("/super-admin/notifications")({
         </ul>
       </SectionCard>
     </SuperPage>
-  ),
-});
+  );
+}

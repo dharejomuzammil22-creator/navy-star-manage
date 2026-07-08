@@ -1,15 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { SuperPage, SimpleTable } from "@/components/SuperPage";
 import { courseChart } from "@/lib/mock-data";
 import { BookOpen, Plus } from "lucide-react";
 
 export const Route = createFileRoute("/super-admin/courses")({
-  component: () => (
+  component: CoursesPage,
+});
+
+function CoursesPage() {
+  const [message, setMessage] = useState<string | null>(null);
+  return (
     <SuperPage
       title="Courses"
       subtitle={`${courseChart.length} courses being offered`}
       actions={
-        <button className="inline-flex items-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm hover:bg-primary/90">
+        <button
+          onClick={() => setMessage("Add course form opened in demo mode.")}
+          className="inline-flex items-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm hover:bg-primary/90"
+        >
           <Plus className="h-4 w-4" /> Add Course
         </button>
       }
@@ -20,6 +29,7 @@ export const Route = createFileRoute("/super-admin/courses")({
         { label: "Duration (avg)", value: "6 mo" },
       ]}
     >
+      {message && <div className="mb-4 rounded-md border border-success/30 bg-success/10 px-4 py-2 text-sm text-success">{message}</div>}
       <SimpleTable
         columns={["Course", "Duration", "Students", "Fee (PKR)"]}
         rows={courseChart.map((c, i) => [
@@ -30,5 +40,5 @@ export const Route = createFileRoute("/super-admin/courses")({
         ])}
       />
     </SuperPage>
-  ),
-});
+  );
+}
