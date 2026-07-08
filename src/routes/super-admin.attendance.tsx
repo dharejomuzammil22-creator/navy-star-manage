@@ -10,7 +10,8 @@ export const Route = createFileRoute("/super-admin/attendance")({
     const [roll, setRoll] = useState("");
     const [message, setMessage] = useState("Enter a roll number to mark attendance.");
     const present = Math.floor(students.length * 0.82);
-    const found = students.find((student) => student.roll.toLowerCase().includes(roll.toLowerCase().trim())) ?? null;
+    const needle = roll.toLowerCase().trim();
+    const found = needle ? students.find((student) => student.roll.toLowerCase().includes(needle)) ?? null : null;
     return (
       <SuperPage
         title="Mark Attendance"
