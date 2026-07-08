@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { PageHeader, SectionCard } from "@/components/ui-bits";
 
 export const Route = createFileRoute("/admin/updation")({
@@ -6,6 +7,7 @@ export const Route = createFileRoute("/admin/updation")({
 });
 
 function UpdationPage() {
+  const [result, setResult] = useState("Last run: 128 updated, 3 not found.");
   return (
     <>
       <PageHeader title="Updation" subtitle="Bulk-update status for a group of students by roll number." />
@@ -33,11 +35,21 @@ function UpdationPage() {
             </div>
           </div>
           <div className="flex gap-2">
-            <button className="h-10 px-4 rounded-md bg-primary text-primary-foreground text-sm">Update All</button>
-            <button className="h-10 px-4 rounded-md border border-border text-sm">Preview</button>
+            <button
+              onClick={() => setResult("Update complete: 3 demo records updated.")}
+              className="h-10 px-4 rounded-md bg-primary text-primary-foreground text-sm"
+            >
+              Update All
+            </button>
+            <button
+              onClick={() => setResult("Preview ready: 3 matching demo roll numbers found.")}
+              className="h-10 px-4 rounded-md border border-border text-sm"
+            >
+              Preview
+            </button>
           </div>
           <div className="rounded-md border border-dashed border-border p-4 text-sm text-muted-foreground">
-            Last run: 128 updated, 3 not found.
+            {result}
           </div>
         </div>
       </SectionCard>

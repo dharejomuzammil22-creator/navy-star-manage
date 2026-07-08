@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { SuperPage, SimpleTable } from "@/components/SuperPage";
 import { StatusBadge } from "@/components/ui-bits";
 import { Layers, Plus } from "lucide-react";
@@ -13,12 +14,20 @@ const batches = Array.from({ length: 12 }).map((_, i) => ({
 }));
 
 export const Route = createFileRoute("/super-admin/batches")({
-  component: () => (
+  component: BatchesPage,
+});
+
+function BatchesPage() {
+  const [message, setMessage] = useState<string | null>(null);
+  return (
     <SuperPage
       title="Batches"
       subtitle={`${batches.length} batches`}
       actions={
-        <button className="inline-flex items-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm hover:bg-primary/90">
+        <button
+          onClick={() => setMessage("Add batch form opened in demo mode.")}
+          className="inline-flex items-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm hover:bg-primary/90"
+        >
           <Plus className="h-4 w-4" /> Add Batch
         </button>
       }
@@ -29,6 +38,7 @@ export const Route = createFileRoute("/super-admin/batches")({
         { label: "Students", value: batches.reduce((a, b) => a + b.students, 0) },
       ]}
     >
+      {message && <div className="mb-4 rounded-md border border-success/30 bg-success/10 px-4 py-2 text-sm text-success">{message}</div>}
       <SimpleTable
         columns={["Batch", "Course", "Campus", "Start", "Students", "Status"]}
         rows={batches.map((b) => [
@@ -41,5 +51,5 @@ export const Route = createFileRoute("/super-admin/batches")({
         ])}
       />
     </SuperPage>
-  ),
-});
+  );
+}

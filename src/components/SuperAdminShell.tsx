@@ -8,15 +8,6 @@ import {
   CalendarClock,
   GraduationCap,
   UserCheck,
-  Building2,
-  MapPin,
-  BookOpen,
-  Layers,
-  UserPlus,
-  Wallet,
-  BarChart3,
-  UserCog,
-  KeyRound,
   ScrollText,
   Bell,
   Settings,
@@ -64,7 +55,6 @@ const nav: NavItem[] = [
     label: "Administration",
     icon: <Shield className="h-4 w-4" />,
     children: [
-      { to: "/super-admin/administration", label: "Overview", icon: <Shield className="h-3.5 w-3.5" /> },
       { to: "/super-admin/slots", label: "Slots", icon: <CalendarClock className="h-3.5 w-3.5" /> },
     ],
   },
@@ -78,18 +68,6 @@ const nav: NavItem[] = [
     ],
   },
   { to: "/super-admin/updation", label: "Updation", icon: <RefreshCw className="h-4 w-4" /> },
-  { to: "/super-admin/campuses", label: "Campuses", icon: <Building2 className="h-4 w-4" /> },
-  { to: "/super-admin/cities", label: "Cities", icon: <MapPin className="h-4 w-4" /> },
-  { to: "/super-admin/courses", label: "Courses", icon: <BookOpen className="h-4 w-4" /> },
-  { to: "/super-admin/batches", label: "Batches", icon: <Layers className="h-4 w-4" /> },
-  { to: "/super-admin/registrations", label: "Registrations", icon: <UserPlus className="h-4 w-4" /> },
-  { to: "/super-admin/payments", label: "Payments", icon: <Wallet className="h-4 w-4" /> },
-  { to: "/super-admin/reports", label: "Reports", icon: <BarChart3 className="h-4 w-4" /> },
-  { to: "/super-admin/users", label: "Users", icon: <UserCog className="h-4 w-4" /> },
-  { to: "/super-admin/roles", label: "Roles & Permissions", icon: <KeyRound className="h-4 w-4" /> },
-  { to: "/super-admin/activity", label: "Activity Logs", icon: <ScrollText className="h-4 w-4" /> },
-  { to: "/super-admin/notifications", label: "Notifications", icon: <Bell className="h-4 w-4" /> },
-  { to: "/super-admin/settings", label: "Settings", icon: <Settings className="h-4 w-4" /> },
   { to: "/super-admin/profile", label: "Profile", icon: <UserCircle className="h-4 w-4" /> },
 ];
 
@@ -268,7 +246,11 @@ export function SuperAdminShell() {
               className="w-full h-9 pl-9 pr-3 rounded-md border border-input bg-background text-sm outline-none focus:ring-2 focus:ring-ring/40"
             />
           </div>
-          <button className="relative h-9 w-9 grid place-items-center rounded-md border border-border hover:bg-accent">
+          <button
+            onClick={() => alert("No new notifications.")}
+            className="relative h-9 w-9 grid place-items-center rounded-md border border-border hover:bg-accent"
+            aria-label="Notifications"
+          >
             <Bell className="h-4 w-4" />
             <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-gold" />
           </button>

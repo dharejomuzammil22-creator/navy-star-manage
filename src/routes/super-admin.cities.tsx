@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { SuperPage, SimpleTable } from "@/components/SuperPage";
 import { MapPin, Plus } from "lucide-react";
 
@@ -14,12 +15,20 @@ const cities = [
 ];
 
 export const Route = createFileRoute("/super-admin/cities")({
-  component: () => (
+  component: CitiesPage,
+});
+
+function CitiesPage() {
+  const [message, setMessage] = useState<string | null>(null);
+  return (
     <SuperPage
       title="Cities"
       subtitle="Cities served by Titan"
       actions={
-        <button className="inline-flex items-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm hover:bg-primary/90">
+        <button
+          onClick={() => setMessage("Add city form opened in demo mode.")}
+          className="inline-flex items-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm hover:bg-primary/90"
+        >
           <Plus className="h-4 w-4" /> Add City
         </button>
       }
@@ -30,10 +39,11 @@ export const Route = createFileRoute("/super-admin/cities")({
         { label: "Country", value: "Pakistan" },
       ]}
     >
+      {message && <div className="mb-4 rounded-md border border-success/30 bg-success/10 px-4 py-2 text-sm text-success">{message}</div>}
       <SimpleTable
         columns={["City", "Campuses", "Students"]}
         rows={cities.map((c) => [c.name, c.campuses, c.students.toLocaleString()])}
       />
     </SuperPage>
-  ),
-});
+  );
+}

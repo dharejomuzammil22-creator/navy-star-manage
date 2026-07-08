@@ -11,6 +11,7 @@ type State = "P" | "L" | "A";
 
 function TrainerAttendance() {
   const [marks, setMarks] = useState<Record<string, State>>({});
+  const [saved, setSaved] = useState(false);
   const list = students.slice(0, 12);
   return (
     <>
@@ -49,7 +50,15 @@ function TrainerAttendance() {
             );
           })}
         </ul>
-        <button className="mt-4 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm">Save Attendance</button>
+        <div className="mt-4 flex items-center gap-3">
+          <button
+            onClick={() => setSaved(true)}
+            className="h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm"
+          >
+            Save Attendance
+          </button>
+          {saved && <span className="text-sm text-success">Attendance saved.</span>}
+        </div>
       </SectionCard>
     </>
   );

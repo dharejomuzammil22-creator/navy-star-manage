@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { SuperPage } from "@/components/SuperPage";
 import { SectionCard } from "@/components/ui-bits";
 
@@ -15,8 +16,14 @@ function Toggle({ label, hint, defaultChecked }: { label: string; hint?: string;
 }
 
 export const Route = createFileRoute("/super-admin/settings")({
-  component: () => (
+  component: SettingsPage,
+});
+
+function SettingsPage() {
+  const [message, setMessage] = useState<string | null>(null);
+  return (
     <SuperPage title="Settings" subtitle="Global system configuration">
+      {message && <div className="mb-4 rounded-md border border-success/30 bg-success/10 px-4 py-2 text-sm text-success">{message}</div>}
       <div className="grid lg:grid-cols-2 gap-6">
         <SectionCard title="Institute Details">
           <div className="space-y-3">
@@ -63,13 +70,13 @@ export const Route = createFileRoute("/super-admin/settings")({
       </div>
 
       <div className="mt-6 flex justify-end gap-2">
-        <button className="h-9 px-3 rounded-md border border-border bg-card text-sm hover:bg-accent">
+        <button onClick={() => setMessage("Changes cancelled.")} className="h-9 px-3 rounded-md border border-border bg-card text-sm hover:bg-accent">
           Cancel
         </button>
-        <button className="h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm hover:bg-primary/90">
+        <button onClick={() => setMessage("Settings saved successfully.")} className="h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm hover:bg-primary/90">
           Save Changes
         </button>
       </div>
     </SuperPage>
-  ),
-});
+  );
+}

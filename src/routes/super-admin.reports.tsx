@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { SuperPage } from "@/components/SuperPage";
 import { SectionCard } from "@/components/ui-bits";
 import { BarChart3, FileText, Download } from "lucide-react";
@@ -16,11 +17,17 @@ const reports = [
 ];
 
 export const Route = createFileRoute("/super-admin/reports")({
-  component: () => (
+  component: ReportsPage,
+});
+
+function ReportsPage() {
+  const [message, setMessage] = useState<string | null>(null);
+  return (
     <SuperPage
       title="Reports"
       subtitle="Generate and download institutional reports"
     >
+      {message && <div className="mb-4 rounded-md border border-success/30 bg-success/10 px-4 py-2 text-sm text-success">{message}</div>}
       <div className="grid lg:grid-cols-2 gap-6 mb-6">
         <SectionCard title="Enrollment by Campus">
           <div className="space-y-2">
@@ -71,7 +78,10 @@ export const Route = createFileRoute("/super-admin/reports")({
                 </div>
                 <div className="text-sm font-medium">{r}</div>
               </div>
-              <button className="inline-flex items-center gap-1.5 h-8 px-2.5 rounded-md border border-border text-xs hover:bg-accent">
+              <button
+                onClick={() => setMessage(`${r} PDF generated.`)}
+                className="inline-flex items-center gap-1.5 h-8 px-2.5 rounded-md border border-border text-xs hover:bg-accent"
+              >
                 <Download className="h-3.5 w-3.5" /> PDF
               </button>
             </div>
@@ -82,5 +92,5 @@ export const Route = createFileRoute("/super-admin/reports")({
         <BarChart3 />
       </div>
     </SuperPage>
-  ),
-});
+  );
+}

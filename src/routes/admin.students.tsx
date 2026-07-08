@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { PageHeader, StatusBadge } from "@/components/ui-bits";
 import { students } from "@/lib/mock-data";
 import { Filter, Download, Plus, Eye, Pencil, Wallet, MoreHorizontal } from "lucide-react";
@@ -8,6 +9,7 @@ export const Route = createFileRoute("/admin/students")({
 });
 
 function StudentsPage() {
+  const [message, setMessage] = useState<string | null>(null);
   return (
     <>
       <PageHeader
@@ -15,18 +17,28 @@ function StudentsPage() {
         subtitle={`${students.length.toLocaleString()} students · all campuses`}
         actions={
           <>
-            <button className="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-border bg-card text-sm hover:bg-accent">
+            <button
+              onClick={() => setMessage("Filters panel opened in demo mode.")}
+              className="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-border bg-card text-sm hover:bg-accent"
+            >
               <Filter className="h-4 w-4" /> Filters
             </button>
-            <button className="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-border bg-card text-sm hover:bg-accent">
+            <button
+              onClick={() => setMessage("Students export prepared.")}
+              className="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-border bg-card text-sm hover:bg-accent"
+            >
               <Download className="h-4 w-4" /> Export
             </button>
-            <button className="inline-flex items-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm hover:bg-primary/90">
+            <button
+              onClick={() => setMessage("Student registration form opened in demo mode.")}
+              className="inline-flex items-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm hover:bg-primary/90"
+            >
               <Plus className="h-4 w-4" /> Register Student
             </button>
           </>
         }
       />
+      {message && <div className="mb-4 rounded-md border border-success/30 bg-success/10 px-4 py-2 text-sm text-success">{message}</div>}
 
       <div className="rounded-xl border border-border bg-card overflow-hidden">
         <div className="overflow-x-auto">
@@ -69,10 +81,10 @@ function StudentsPage() {
                   <td className="px-4 py-3"><StatusBadge status={s.payment} /></td>
                   <td className="px-4 py-3">
                     <div className="flex items-center justify-end gap-1">
-                      <button className="h-7 w-7 grid place-items-center rounded hover:bg-accent" title="View"><Eye className="h-3.5 w-3.5" /></button>
-                      <button className="h-7 w-7 grid place-items-center rounded hover:bg-accent" title="Edit"><Pencil className="h-3.5 w-3.5" /></button>
-                      <button className="h-7 w-7 grid place-items-center rounded hover:bg-accent" title="Payments"><Wallet className="h-3.5 w-3.5" /></button>
-                      <button className="h-7 w-7 grid place-items-center rounded hover:bg-accent"><MoreHorizontal className="h-3.5 w-3.5" /></button>
+                      <button onClick={() => setMessage(`Viewing ${s.name}.`)} className="h-7 w-7 grid place-items-center rounded hover:bg-accent" title="View"><Eye className="h-3.5 w-3.5" /></button>
+                      <button onClick={() => setMessage(`Editing ${s.name}.`)} className="h-7 w-7 grid place-items-center rounded hover:bg-accent" title="Edit"><Pencil className="h-3.5 w-3.5" /></button>
+                      <button onClick={() => setMessage(`Payments opened for ${s.name}.`)} className="h-7 w-7 grid place-items-center rounded hover:bg-accent" title="Payments"><Wallet className="h-3.5 w-3.5" /></button>
+                      <button onClick={() => setMessage(`More actions opened for ${s.name}.`)} className="h-7 w-7 grid place-items-center rounded hover:bg-accent" aria-label={`More actions for ${s.name}`}><MoreHorizontal className="h-3.5 w-3.5" /></button>
                     </div>
                   </td>
                 </tr>
@@ -83,10 +95,10 @@ function StudentsPage() {
         <div className="px-4 py-3 border-t border-border flex items-center justify-between text-xs text-muted-foreground">
           <div>Showing 1–{students.length} of {students.length}</div>
           <div className="flex items-center gap-1">
-            <button className="h-7 px-2 rounded border border-border hover:bg-accent">Prev</button>
-            <button className="h-7 px-2 rounded border border-border bg-primary text-primary-foreground">1</button>
-            <button className="h-7 px-2 rounded border border-border hover:bg-accent">2</button>
-            <button className="h-7 px-2 rounded border border-border hover:bg-accent">Next</button>
+            <button onClick={() => setMessage("Already on first page.")} className="h-7 px-2 rounded border border-border hover:bg-accent">Prev</button>
+            <button onClick={() => setMessage("Page 1 selected.")} className="h-7 px-2 rounded border border-border bg-primary text-primary-foreground">1</button>
+            <button onClick={() => setMessage("Page 2 selected.")} className="h-7 px-2 rounded border border-border hover:bg-accent">2</button>
+            <button onClick={() => setMessage("Next page selected.")} className="h-7 px-2 rounded border border-border hover:bg-accent">Next</button>
           </div>
         </div>
       </div>
