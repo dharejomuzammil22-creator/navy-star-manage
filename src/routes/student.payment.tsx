@@ -26,7 +26,13 @@ export const Route = createFileRoute("/student/payment")({
                     <td className="py-3">
                       <div className="flex items-center gap-2">
                         <span className="font-mono text-xs">{v.id}</span>
-                        <button className="text-muted-foreground hover:text-foreground"><Copy className="h-3 w-3"/></button>
+                        <button
+                          onClick={() => navigator.clipboard?.writeText(v.id)}
+                          className="text-muted-foreground hover:text-foreground"
+                          aria-label={`Copy ${v.id}`}
+                        >
+                          <Copy className="h-3 w-3"/>
+                        </button>
                       </div>
                     </td>
                     <td className="py-3 text-muted-foreground">{v.month}</td>

@@ -121,7 +121,11 @@ export function AppShell({ role }: AppShellProps) {
               className="w-full h-9 pl-9 pr-3 rounded-md border border-input bg-background text-sm outline-none focus:ring-2 focus:ring-ring/40"
             />
           </div>
-          <button className="relative h-9 w-9 grid place-items-center rounded-md border border-border hover:bg-accent">
+          <button
+            onClick={() => alert("No new notifications.")}
+            className="relative h-9 w-9 grid place-items-center rounded-md border border-border hover:bg-accent"
+            aria-label="Notifications"
+          >
             <Bell className="h-4 w-4" />
             <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-gold" />
           </button>

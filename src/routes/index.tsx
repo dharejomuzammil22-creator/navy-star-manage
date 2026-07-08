@@ -121,7 +121,9 @@ function PortalCard({
         <div className="font-medium text-foreground">{title}</div>
         <div className="text-xs text-muted-foreground truncate">{desc}</div>
       </div>
-      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+      <span className="inline-flex items-center gap-1 rounded-md bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground">
+        Login <ArrowRight className="h-3.5 w-3.5" />
+      </span>
     </Link>
   );
 }

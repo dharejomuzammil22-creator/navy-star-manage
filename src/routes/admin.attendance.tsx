@@ -11,6 +11,7 @@ export const Route = createFileRoute("/admin/attendance")({
 function AttendancePage() {
   const [tab, setTab] = useState<"mark" | "view" | "multi">("mark");
   const [roll, setRoll] = useState("");
+  const [message, setMessage] = useState("Enter a roll number to preview the student.");
   const found = students.find((s) => s.roll.endsWith(roll)) ?? null;
 
   return (
@@ -44,7 +45,12 @@ function AttendancePage() {
                   className="w-full h-10 pl-9 pr-3 rounded-md border border-input bg-background text-sm outline-none focus:ring-2 focus:ring-ring/40"
                 />
               </div>
-              <button className="h-10 px-4 rounded-md bg-primary text-primary-foreground text-sm">Mark</button>
+              <button
+                onClick={() => setMessage(found ? `${found.name} marked present.` : "No matching roll number found.")}
+                className="h-10 px-4 rounded-md bg-primary text-primary-foreground text-sm"
+              >
+                Mark
+              </button>
             </div>
 
             {found ? (
@@ -65,7 +71,7 @@ function AttendancePage() {
               </div>
             ) : (
               <div className="mt-5 rounded-lg border border-dashed border-border p-8 text-center text-sm text-muted-foreground">
-                Enter a roll number to preview the student.
+                {message}
               </div>
             )}
           </SectionCard>
@@ -132,7 +138,12 @@ function AttendancePage() {
               className="w-full h-40 px-3 py-2 rounded-md border border-input bg-background text-sm font-mono outline-none focus:ring-2 focus:ring-ring/40"
             />
             <div>
-              <button className="h-10 px-4 rounded-md bg-primary text-primary-foreground text-sm">Mark All Present</button>
+              <button
+                onClick={() => setMessage("Bulk attendance marked present for entered roll numbers.")}
+                className="h-10 px-4 rounded-md bg-primary text-primary-foreground text-sm"
+              >
+                Mark All Present
+              </button>
             </div>
           </div>
         </SectionCard>
