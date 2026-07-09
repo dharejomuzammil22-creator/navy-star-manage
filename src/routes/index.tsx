@@ -59,16 +59,23 @@ function Landing() {
               backgroundSize: "40px 40px, 60px 60px",
             }}
           />
-          <Logo variant="light" />
-          <div className="relative">
+          <div className="relative flex items-center gap-3">
             <img
               src={logo.url}
-              alt=""
-              className="h-52 w-52 object-contain mb-8 drop-shadow-[0_10px_25px_rgba(0,0,0,0.35)]"
+              alt="Titan"
+              className="h-11 w-11 object-contain shrink-0 drop-shadow-[0_6px_18px_rgba(0,0,0,0.35)]"
             />
+            <div className="leading-tight">
+              <div className="font-display text-lg tracking-wide text-sidebar-foreground">TITAN</div>
+              <div className="text-[10px] uppercase tracking-[0.15em] text-sidebar-foreground/70">
+                Institute · SMS
+              </div>
+            </div>
+          </div>
+          <div className="relative">
             <div className="text-[10px] uppercase tracking-[0.3em] text-gold mb-3">Estd. 2025</div>
             <h1 className="font-display text-4xl leading-tight">
-              Titan Student <br /> Management System
+              Start your <br /> journey with us.
             </h1>
             <p className="mt-4 max-w-md text-sm text-sidebar-foreground/70">
               One connected platform for admins, trainers and students at the
@@ -86,7 +93,6 @@ function Landing() {
         <div className="flex items-center justify-center p-8 lg:p-14">
           <div className="w-full max-w-md">
             <div className="lg:hidden mb-8 flex flex-col items-center text-center">
-              <img src={logo.url} alt="Titan" className="h-16 w-16 object-contain mb-3" />
               <Logo />
             </div>
 
