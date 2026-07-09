@@ -14,7 +14,7 @@ const myCourses = [
 ];
 
 const week = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-const teaching = [true, true, true, true, true, true, false];
+const teaching = [true, false, true, false, true, false, false];
 
 function TrainerDashboard() {
   return (
