@@ -8,11 +8,24 @@ export const Route = createFileRoute("/admin/attendance")({
   component: AttendancePage,
 });
 
+type Mark = { name: string; roll: string; state: "Present" | "Absent" | "Leave" };
+
 function AttendancePage() {
   const [tab, setTab] = useState<"mark" | "view" | "multi">("mark");
   const [roll, setRoll] = useState("");
   const [message, setMessage] = useState("Enter a roll number to preview the student.");
-  const found = students.find((s) => s.roll.endsWith(roll)) ?? null;
+  const [recent, setRecent] = useState<Mark[]>([]);
+  const found = roll.trim() ? students.find((s) => s.roll.toLowerCase().includes(roll.toLowerCase().trim())) ?? null : null;
+
+  const markAs = (state: Mark["state"]) => {
+    if (!found) {
+      setMessage("No matching roll number found.");
+      return;
+    }
+    setRecent((prev) => [{ name: found.name, roll: found.roll, state }, ...prev.filter((r) => r.roll !== found.roll)].slice(0, 8));
+    setMessage(`${found.name} marked ${state}.`);
+    setRoll("");
+  };
 
   return (
     <>
