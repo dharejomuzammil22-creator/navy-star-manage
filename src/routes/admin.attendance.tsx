@@ -58,30 +58,38 @@ function AttendancePage() {
                   className="w-full h-10 pl-9 pr-3 rounded-md border border-input bg-background text-sm outline-none focus:ring-2 focus:ring-ring/40"
                 />
               </div>
-              <button
-                onClick={() => setMessage(found ? `${found.name} marked present.` : "No matching roll number found.")}
-                className="h-10 px-4 rounded-md bg-primary text-primary-foreground text-sm"
-              >
-                Mark
-              </button>
             </div>
 
             {found ? (
-              <div className="mt-5 rounded-lg border border-border p-4 flex items-center gap-4">
-                <div className="h-14 w-14 rounded-full bg-primary/10 text-primary grid place-items-center text-sm font-semibold">
-                  {found.name.split(" ").map((n) => n[0]).join("")}
+              <>
+                <div className="mt-5 rounded-lg border border-border p-4 flex items-center gap-4">
+                  <div className="h-14 w-14 rounded-full bg-primary/10 text-primary grid place-items-center text-sm font-semibold">
+                    {found.name.split(" ").map((n) => n[0]).join("")}
+                  </div>
+                  <div className="flex-1">
+                    <div className="font-medium">{found.name}</div>
+                    <div className="text-xs text-muted-foreground">{found.course} · {found.campus}</div>
+                    <div className="text-xs font-mono mt-1">{found.roll}</div>
+                  </div>
+                  {found.payment !== "Paid" && (
+                    <span className="text-xs rounded-full bg-warning/20 text-warning-foreground px-2 py-0.5">
+                      Fee {found.payment}
+                    </span>
+                  )}
                 </div>
-                <div className="flex-1">
-                  <div className="font-medium">{found.name}</div>
-                  <div className="text-xs text-muted-foreground">{found.course} · {found.campus}</div>
-                  <div className="text-xs font-mono mt-1">{found.roll}</div>
+                <div className="mt-4 grid grid-cols-3 gap-2">
+                  <button onClick={() => markAs("Present")} className="h-10 rounded-md bg-success text-success-foreground text-sm font-medium hover:opacity-90 inline-flex items-center justify-center gap-1.5">
+                    <CheckCircle2 className="h-4 w-4" /> Present
+                  </button>
+                  <button onClick={() => markAs("Absent")} className="h-10 rounded-md bg-destructive text-destructive-foreground text-sm font-medium hover:opacity-90 inline-flex items-center justify-center gap-1.5">
+                    <XCircle className="h-4 w-4" /> Absent
+                  </button>
+                  <button onClick={() => markAs("Leave")} className="h-10 rounded-md bg-warning text-warning-foreground text-sm font-medium hover:opacity-90 inline-flex items-center justify-center gap-1.5">
+                    <Clock className="h-4 w-4" /> Leave
+                  </button>
                 </div>
-                {found.payment !== "Paid" && (
-                  <span className="text-xs rounded-full bg-warning/20 text-warning-foreground px-2 py-0.5">
-                    Fee {found.payment}
-                  </span>
-                )}
-              </div>
+                <div className="mt-3 text-xs text-muted-foreground">{message}</div>
+              </>
             ) : (
               <div className="mt-5 rounded-lg border border-dashed border-border p-8 text-center text-sm text-muted-foreground">
                 {message}
@@ -91,14 +99,17 @@ function AttendancePage() {
 
           <SectionCard title="Today · Recently Marked">
             <ul className="divide-y divide-border">
-              {students.slice(0, 6).map((s) => (
-                <li key={s.id} className="py-2.5 flex items-center justify-between">
+              {(recent.length ? recent : students.slice(0, 6).map((s) => ({ name: s.name, roll: s.roll, state: "Present" as const }))).map((s) => (
+                <li key={s.roll} className="py-2.5 flex items-center justify-between">
                   <div>
                     <div className="text-sm">{s.name}</div>
                     <div className="text-[11px] text-muted-foreground font-mono">{s.roll}</div>
                   </div>
-                  <span className="inline-flex items-center gap-1 text-xs text-success">
-                    <CheckCircle2 className="h-3.5 w-3.5" /> Present
+                  <span className={`inline-flex items-center gap-1 text-xs ${
+                    s.state === "Present" ? "text-success" : s.state === "Absent" ? "text-destructive" : "text-warning-foreground"
+                  }`}>
+                    {s.state === "Present" ? <CheckCircle2 className="h-3.5 w-3.5" /> : s.state === "Absent" ? <XCircle className="h-3.5 w-3.5" /> : <Clock className="h-3.5 w-3.5" />}
+                    {s.state}
                   </span>
                 </li>
               ))}
