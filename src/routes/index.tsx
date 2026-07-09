@@ -48,7 +48,7 @@ function Landing() {
       <div className="min-h-screen grid lg:grid-cols-2">
         {/* Left navy panel */}
         <div
-          className="relative hidden lg:flex flex-col justify-between p-10 text-sidebar-foreground overflow-hidden"
+          className="relative hidden lg:flex flex-col items-center justify-center p-10 text-sidebar-foreground overflow-hidden"
           style={{ background: "var(--gradient-navy)" }}
         >
           <div
@@ -71,21 +71,6 @@ function Landing() {
                 Institute · SMS
               </div>
             </div>
-          </div>
-          <div className="relative">
-            <div className="text-[10px] uppercase tracking-[0.3em] text-gold mb-3">Estd. 2025</div>
-            <h1 className="font-display text-4xl leading-tight">
-              Start your <br /> journey with us.
-            </h1>
-            <p className="mt-4 max-w-md text-sm text-sidebar-foreground/70">
-              One connected platform for admins, trainers and students at the
-              Taj Institute of Technology & Applied Networks — across every city and campus.
-            </p>
-          </div>
-          <div className="relative flex items-center gap-6 text-xs text-sidebar-foreground/60">
-            <span>© 2026 TITAN · TAJ INSTITUTE</span>
-            <span className="h-1 w-1 rounded-full bg-gold" />
-            <span>Version 1.0</span>
           </div>
         </div>
 
