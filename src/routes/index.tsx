@@ -93,7 +93,6 @@ function Landing() {
         <div className="flex items-center justify-center p-8 lg:p-14">
           <div className="w-full max-w-md">
             <div className="lg:hidden mb-8 flex flex-col items-center text-center">
-              <img src={logo.url} alt="Titan" className="h-16 w-16 object-contain mb-3" />
               <Logo />
             </div>
 
