@@ -59,19 +59,20 @@ function Landing() {
               backgroundSize: "40px 40px, 60px 60px",
             }}
           />
-          <div className="relative flex items-center gap-3">
+          <div className="relative flex flex-col items-center gap-4">
             <img
               src={logo.url}
               alt="Titan"
-              className="h-11 w-11 object-contain shrink-0 drop-shadow-[0_6px_18px_rgba(0,0,0,0.35)]"
+              className="h-56 w-56 object-contain shrink-0 drop-shadow-[0_10px_28px_rgba(0,0,0,0.45)]"
             />
-            <div className="leading-tight">
-              <div className="font-display text-lg tracking-wide text-sidebar-foreground">TITAN</div>
-              <div className="text-[10px] uppercase tracking-[0.15em] text-sidebar-foreground/70">
+            <div className="text-center leading-tight">
+              <div className="font-display text-2xl tracking-wide text-sidebar-foreground">TITAN</div>
+              <div className="text-[11px] uppercase tracking-[0.2em] text-sidebar-foreground/70">
                 Institute · SMS
               </div>
             </div>
           </div>
+
         </div>
 
         {/* Right login form */}
