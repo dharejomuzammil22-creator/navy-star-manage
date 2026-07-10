@@ -1,15 +1,70 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { PageHeader, StatusBadge } from "@/components/ui-bits";
-import { slots } from "@/lib/mock-data";
-import { Plus, CalendarClock } from "lucide-react";
+import { Drawer } from "@/components/Drawer";
+import { slots as seedSlots } from "@/lib/mock-data";
+import { Plus, CalendarClock, Trash2, Pencil } from "lucide-react";
 
 export const Route = createFileRoute("/admin/slots")({
   component: SlotsPage,
 });
 
+type Slot = (typeof seedSlots)[number];
+
+const COURSES = ["Artificial Intelligence", "Web & Mobile App", "Graphic Design", "Cloud Computing", "Cyber Security", "Data Science", "Digital Marketing", "UI/UX Design"];
+const CAMPUSES = ["Karachi Main", "Lahore Gulberg", "Islamabad F-8", "Sukkur", "Faisalabad", "Multan", "Peshawar", "Hyderabad"];
+const SCHEDULES = ["Mon/Wed/Fri 4:00–6:00 PM", "Mon/Wed/Fri 6:00–8:00 PM", "Mon/Wed/Fri 10:00 AM–12:00 PM"];
+
+function emptyForm(): Slot {
+  return {
+    id: `SL-${Math.floor(Math.random() * 900) + 100}`,
+    course: COURSES[0],
+    trainer: "",
+    campus: CAMPUSES[0],
+    schedule: SCHEDULES[0],
+    seatsUsed: 0,
+    seatsTotal: 60,
+    open: true,
+  };
+}
+
 function SlotsPage() {
+  const [list, setList] = useState<Slot[]>([...seedSlots]);
+  const [open, setOpen] = useState(false);
+  const [editing, setEditing] = useState<Slot | null>(null);
+  const [form, setForm] = useState<Slot>(emptyForm());
   const [message, setMessage] = useState<string | null>(null);
+
+  function openAdd() {
+    setEditing(null);
+    setForm(emptyForm());
+    setOpen(true);
+  }
+  function openEdit(s: Slot) {
+    setEditing(s);
+    setForm({ ...s });
+    setOpen(true);
+  }
+  function save() {
+    if (!form.trainer.trim()) {
+      setMessage("Trainer name is required.");
+      return;
+    }
+    if (editing) {
+      setList((l) => l.map((x) => (x.id === editing.id ? form : x)));
+      setMessage(`Slot ${form.id} updated.`);
+    } else {
+      setList((l) => [form, ...l]);
+      setMessage(`Slot ${form.id} added.`);
+    }
+    setOpen(false);
+  }
+  function remove(id: string) {
+    if (!confirm("Delete this slot?")) return;
+    setList((l) => l.filter((s) => s.id !== id));
+    setMessage(`Slot ${id} deleted.`);
+  }
+
   return (
     <>
       <PageHeader
@@ -17,16 +72,21 @@ function SlotsPage() {
         subtitle="Class groups — one course, one trainer, one campus."
         actions={
           <button
-            onClick={() => setMessage("Add slot form opened in demo mode.")}
+            onClick={openAdd}
             className="inline-flex items-center gap-2 h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm"
           >
             <Plus className="h-4 w-4" /> Add Slot
           </button>
         }
       />
-      {message && <div className="mb-4 rounded-md border border-success/30 bg-success/10 px-4 py-2 text-sm text-success">{message}</div>}
+      {message && (
+        <div className="mb-4 rounded-md border border-success/30 bg-success/10 px-4 py-2 text-sm text-success flex items-center justify-between">
+          <span>{message}</span>
+          <button onClick={() => setMessage(null)} className="text-xs opacity-70 hover:opacity-100">dismiss</button>
+        </div>
+      )}
       <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
-        {slots.map((s) => {
+        {list.map((s) => {
           const pct = Math.round((s.seatsUsed / s.seatsTotal) * 100);
           return (
             <div key={s.id} className="rounded-xl border border-border bg-card p-5">
@@ -57,10 +117,71 @@ function SlotsPage() {
                   <div className="h-full bg-gold" style={{ width: `${pct}%` }} />
                 </div>
               </div>
+              <div className="mt-4 flex gap-2">
+                <button onClick={() => openEdit(s)} className="inline-flex items-center gap-1 h-8 px-3 rounded-md border border-border text-xs hover:bg-muted">
+                  <Pencil className="h-3 w-3" /> Edit
+                </button>
+                <button onClick={() => remove(s.id)} className="inline-flex items-center gap-1 h-8 px-3 rounded-md border border-destructive/40 text-destructive text-xs hover:bg-destructive/10">
+                  <Trash2 className="h-3 w-3" /> Delete
+                </button>
+              </div>
             </div>
           );
         })}
       </div>
+
+      <Drawer open={open} onClose={() => setOpen(false)} title={editing ? `Edit ${editing.id}` : "Add Slot"}>
+        <div className="space-y-4">
+          <Field label="Slot ID">
+            <input value={form.id} onChange={(e) => setForm({ ...form, id: e.target.value })} className="input" />
+          </Field>
+          <Field label="Course">
+            <select value={form.course} onChange={(e) => setForm({ ...form, course: e.target.value })} className="input">
+              {COURSES.map((c) => <option key={c}>{c}</option>)}
+            </select>
+          </Field>
+          <Field label="Trainer">
+            <input value={form.trainer} onChange={(e) => setForm({ ...form, trainer: e.target.value })} placeholder="e.g. Ahmed Khan" className="input" />
+          </Field>
+          <Field label="Campus">
+            <select value={form.campus} onChange={(e) => setForm({ ...form, campus: e.target.value })} className="input">
+              {CAMPUSES.map((c) => <option key={c}>{c}</option>)}
+            </select>
+          </Field>
+          <Field label="Schedule">
+            <select value={form.schedule} onChange={(e) => setForm({ ...form, schedule: e.target.value })} className="input">
+              {SCHEDULES.map((c) => <option key={c}>{c}</option>)}
+            </select>
+          </Field>
+          <div className="grid grid-cols-2 gap-3">
+            <Field label="Seats Used">
+              <input type="number" value={form.seatsUsed} onChange={(e) => setForm({ ...form, seatsUsed: +e.target.value })} className="input" />
+            </Field>
+            <Field label="Seats Total">
+              <input type="number" value={form.seatsTotal} onChange={(e) => setForm({ ...form, seatsTotal: +e.target.value })} className="input" />
+            </Field>
+          </div>
+          <label className="flex items-center gap-2 text-sm">
+            <input type="checkbox" checked={form.open} onChange={(e) => setForm({ ...form, open: e.target.checked })} />
+            Registration Open
+          </label>
+          <div className="flex justify-end gap-2 pt-4 border-t border-border">
+            <button onClick={() => setOpen(false)} className="h-9 px-4 rounded-md border border-border text-sm">Cancel</button>
+            <button onClick={save} className="h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm">{editing ? "Save" : "Add Slot"}</button>
+          </div>
+        </div>
+      </Drawer>
+
+      <style>{`.input{width:100%;height:36px;padding:0 10px;border-radius:6px;border:1px solid hsl(var(--border));background:hsl(var(--background));font-size:14px}`}</style>
     </>
+  );
+}
+
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <label className="block text-xs font-medium text-muted-foreground mb-1">{label}</label>
+      {children}
+    </div>
   );
 }
