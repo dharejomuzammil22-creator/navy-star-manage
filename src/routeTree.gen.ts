@@ -24,6 +24,7 @@ import { Route as TrainerAttendanceRouteImport } from './routes/trainer.attendan
 import { Route as SuperAdminUsersRouteImport } from './routes/super-admin.users'
 import { Route as SuperAdminUpdationRouteImport } from './routes/super-admin.updation'
 import { Route as SuperAdminTrainersRouteImport } from './routes/super-admin.trainers'
+import { Route as SuperAdminTrainerAttendanceRequestRouteImport } from './routes/super-admin.trainer-attendance-request'
 import { Route as SuperAdminTrainerAttendanceRouteImport } from './routes/super-admin.trainer-attendance'
 import { Route as SuperAdminStudentsRouteImport } from './routes/super-admin.students'
 import { Route as SuperAdminSlotsRouteImport } from './routes/super-admin.slots'
@@ -130,6 +131,12 @@ const SuperAdminTrainersRoute = SuperAdminTrainersRouteImport.update({
   path: '/trainers',
   getParentRoute: () => SuperAdminRoute,
 } as any)
+const SuperAdminTrainerAttendanceRequestRoute =
+  SuperAdminTrainerAttendanceRequestRouteImport.update({
+    id: '/trainer-attendance-request',
+    path: '/trainer-attendance-request',
+    getParentRoute: () => SuperAdminRoute,
+  } as any)
 const SuperAdminTrainerAttendanceRoute =
   SuperAdminTrainerAttendanceRouteImport.update({
     id: '/trainer-attendance',
@@ -319,6 +326,7 @@ export interface FileRoutesByFullPath {
   '/super-admin/slots': typeof SuperAdminSlotsRoute
   '/super-admin/students': typeof SuperAdminStudentsRoute
   '/super-admin/trainer-attendance': typeof SuperAdminTrainerAttendanceRoute
+  '/super-admin/trainer-attendance-request': typeof SuperAdminTrainerAttendanceRequestRoute
   '/super-admin/trainers': typeof SuperAdminTrainersRoute
   '/super-admin/updation': typeof SuperAdminUpdationRoute
   '/super-admin/users': typeof SuperAdminUsersRoute
@@ -362,6 +370,7 @@ export interface FileRoutesByTo {
   '/super-admin/slots': typeof SuperAdminSlotsRoute
   '/super-admin/students': typeof SuperAdminStudentsRoute
   '/super-admin/trainer-attendance': typeof SuperAdminTrainerAttendanceRoute
+  '/super-admin/trainer-attendance-request': typeof SuperAdminTrainerAttendanceRequestRoute
   '/super-admin/trainers': typeof SuperAdminTrainersRoute
   '/super-admin/updation': typeof SuperAdminUpdationRoute
   '/super-admin/users': typeof SuperAdminUsersRoute
@@ -410,6 +419,7 @@ export interface FileRoutesById {
   '/super-admin/slots': typeof SuperAdminSlotsRoute
   '/super-admin/students': typeof SuperAdminStudentsRoute
   '/super-admin/trainer-attendance': typeof SuperAdminTrainerAttendanceRoute
+  '/super-admin/trainer-attendance-request': typeof SuperAdminTrainerAttendanceRequestRoute
   '/super-admin/trainers': typeof SuperAdminTrainersRoute
   '/super-admin/updation': typeof SuperAdminUpdationRoute
   '/super-admin/users': typeof SuperAdminUsersRoute
@@ -459,6 +469,7 @@ export interface FileRouteTypes {
     | '/super-admin/slots'
     | '/super-admin/students'
     | '/super-admin/trainer-attendance'
+    | '/super-admin/trainer-attendance-request'
     | '/super-admin/trainers'
     | '/super-admin/updation'
     | '/super-admin/users'
@@ -502,6 +513,7 @@ export interface FileRouteTypes {
     | '/super-admin/slots'
     | '/super-admin/students'
     | '/super-admin/trainer-attendance'
+    | '/super-admin/trainer-attendance-request'
     | '/super-admin/trainers'
     | '/super-admin/updation'
     | '/super-admin/users'
@@ -549,6 +561,7 @@ export interface FileRouteTypes {
     | '/super-admin/slots'
     | '/super-admin/students'
     | '/super-admin/trainer-attendance'
+    | '/super-admin/trainer-attendance-request'
     | '/super-admin/trainers'
     | '/super-admin/updation'
     | '/super-admin/users'
@@ -675,6 +688,13 @@ declare module '@tanstack/react-router' {
       path: '/trainers'
       fullPath: '/super-admin/trainers'
       preLoaderRoute: typeof SuperAdminTrainersRouteImport
+      parentRoute: typeof SuperAdminRoute
+    }
+    '/super-admin/trainer-attendance-request': {
+      id: '/super-admin/trainer-attendance-request'
+      path: '/trainer-attendance-request'
+      fullPath: '/super-admin/trainer-attendance-request'
+      preLoaderRoute: typeof SuperAdminTrainerAttendanceRequestRouteImport
       parentRoute: typeof SuperAdminRoute
     }
     '/super-admin/trainer-attendance': {
@@ -964,6 +984,7 @@ interface SuperAdminRouteChildren {
   SuperAdminSlotsRoute: typeof SuperAdminSlotsRoute
   SuperAdminStudentsRoute: typeof SuperAdminStudentsRoute
   SuperAdminTrainerAttendanceRoute: typeof SuperAdminTrainerAttendanceRoute
+  SuperAdminTrainerAttendanceRequestRoute: typeof SuperAdminTrainerAttendanceRequestRoute
   SuperAdminTrainersRoute: typeof SuperAdminTrainersRoute
   SuperAdminUpdationRoute: typeof SuperAdminUpdationRoute
   SuperAdminUsersRoute: typeof SuperAdminUsersRoute
@@ -988,6 +1009,8 @@ const SuperAdminRouteChildren: SuperAdminRouteChildren = {
   SuperAdminSlotsRoute: SuperAdminSlotsRoute,
   SuperAdminStudentsRoute: SuperAdminStudentsRoute,
   SuperAdminTrainerAttendanceRoute: SuperAdminTrainerAttendanceRoute,
+  SuperAdminTrainerAttendanceRequestRoute:
+    SuperAdminTrainerAttendanceRequestRoute,
   SuperAdminTrainersRoute: SuperAdminTrainersRoute,
   SuperAdminUpdationRoute: SuperAdminUpdationRoute,
   SuperAdminUsersRoute: SuperAdminUsersRoute,
