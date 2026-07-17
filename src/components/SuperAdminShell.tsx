@@ -64,7 +64,7 @@ const nav: NavItem[] = [
     icon: <GraduationCap className="h-4 w-4" />,
     children: [
       { to: "/super-admin/trainers", label: "Trainers", icon: <GraduationCap className="h-3.5 w-3.5" /> },
-      { to: "/super-admin/trainer-attendance", label: "Trainer Attendance", icon: <UserCheck className="h-3.5 w-3.5" /> },
+      { to: "/super-admin/trainer-attendance", label: "View Attendance", icon: <UserCheck className="h-3.5 w-3.5" /> },
       { to: "/super-admin/trainer-attendance-request", label: "Attendance Request", icon: <ScrollText className="h-3.5 w-3.5" /> },
     ],
   },
