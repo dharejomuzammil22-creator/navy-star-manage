@@ -179,16 +179,6 @@ function Landing() {
               </button>
             </form>
 
-            <div className="mt-8 rounded-lg border border-border bg-card p-4">
-              <div className="text-xs font-medium text-foreground mb-2">Demo credentials</div>
-              <div className="text-xs text-muted-foreground space-y-1">
-                <div><span className="text-foreground">Super Admin</span> · zaid@titan.edu.pk</div>
-                <div><span className="text-foreground">Admin</span> · admin@titan.edu.pk</div>
-                <div><span className="text-foreground">Trainer</span> · trainer@titan.edu.pk</div>
-                <div><span className="text-foreground">Student</span> · 42101-1234567-8</div>
-                <div className="pt-1 text-[11px] italic">Password: any value works in demo mode.</div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
