@@ -55,6 +55,7 @@ import { Route as AdminSlotsRouteImport } from './routes/admin.slots'
 import { Route as AdminProfileRouteImport } from './routes/admin.profile'
 import { Route as AdminAttendanceRouteImport } from './routes/admin.attendance'
 import { Route as SuperAdminAttendanceViewRouteImport } from './routes/super-admin.attendance.view'
+import { Route as AdminAttendanceViewRouteImport } from './routes/admin.attendance.view'
 
 const TrainerRoute = TrainerRouteImport.update({
   id: '/trainer',
@@ -290,6 +291,11 @@ const SuperAdminAttendanceViewRoute =
     path: '/view',
     getParentRoute: () => SuperAdminAttendanceRoute,
   } as any)
+const AdminAttendanceViewRoute = AdminAttendanceViewRouteImport.update({
+  id: '/view',
+  path: '/view',
+  getParentRoute: () => AdminAttendanceRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -297,7 +303,7 @@ export interface FileRoutesByFullPath {
   '/student': typeof StudentRouteWithChildren
   '/super-admin': typeof SuperAdminRouteWithChildren
   '/trainer': typeof TrainerRouteWithChildren
-  '/admin/attendance': typeof AdminAttendanceRoute
+  '/admin/attendance': typeof AdminAttendanceRouteWithChildren
   '/admin/profile': typeof AdminProfileRoute
   '/admin/slots': typeof AdminSlotsRoute
   '/admin/students': typeof AdminStudentsRoute
@@ -337,11 +343,12 @@ export interface FileRoutesByFullPath {
   '/student/': typeof StudentIndexRoute
   '/super-admin/': typeof SuperAdminIndexRoute
   '/trainer/': typeof TrainerIndexRoute
+  '/admin/attendance/view': typeof AdminAttendanceViewRoute
   '/super-admin/attendance/view': typeof SuperAdminAttendanceViewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin/attendance': typeof AdminAttendanceRoute
+  '/admin/attendance': typeof AdminAttendanceRouteWithChildren
   '/admin/profile': typeof AdminProfileRoute
   '/admin/slots': typeof AdminSlotsRoute
   '/admin/students': typeof AdminStudentsRoute
@@ -381,6 +388,7 @@ export interface FileRoutesByTo {
   '/student': typeof StudentIndexRoute
   '/super-admin': typeof SuperAdminIndexRoute
   '/trainer': typeof TrainerIndexRoute
+  '/admin/attendance/view': typeof AdminAttendanceViewRoute
   '/super-admin/attendance/view': typeof SuperAdminAttendanceViewRoute
 }
 export interface FileRoutesById {
@@ -390,7 +398,7 @@ export interface FileRoutesById {
   '/student': typeof StudentRouteWithChildren
   '/super-admin': typeof SuperAdminRouteWithChildren
   '/trainer': typeof TrainerRouteWithChildren
-  '/admin/attendance': typeof AdminAttendanceRoute
+  '/admin/attendance': typeof AdminAttendanceRouteWithChildren
   '/admin/profile': typeof AdminProfileRoute
   '/admin/slots': typeof AdminSlotsRoute
   '/admin/students': typeof AdminStudentsRoute
@@ -430,6 +438,7 @@ export interface FileRoutesById {
   '/student/': typeof StudentIndexRoute
   '/super-admin/': typeof SuperAdminIndexRoute
   '/trainer/': typeof TrainerIndexRoute
+  '/admin/attendance/view': typeof AdminAttendanceViewRoute
   '/super-admin/attendance/view': typeof SuperAdminAttendanceViewRoute
 }
 export interface FileRouteTypes {
@@ -480,6 +489,7 @@ export interface FileRouteTypes {
     | '/student/'
     | '/super-admin/'
     | '/trainer/'
+    | '/admin/attendance/view'
     | '/super-admin/attendance/view'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -524,6 +534,7 @@ export interface FileRouteTypes {
     | '/student'
     | '/super-admin'
     | '/trainer'
+    | '/admin/attendance/view'
     | '/super-admin/attendance/view'
   id:
     | '__root__'
@@ -572,6 +583,7 @@ export interface FileRouteTypes {
     | '/student/'
     | '/super-admin/'
     | '/trainer/'
+    | '/admin/attendance/view'
     | '/super-admin/attendance/view'
   fileRoutesById: FileRoutesById
 }
@@ -907,11 +919,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SuperAdminAttendanceViewRouteImport
       parentRoute: typeof SuperAdminAttendanceRoute
     }
+    '/admin/attendance/view': {
+      id: '/admin/attendance/view'
+      path: '/view'
+      fullPath: '/admin/attendance/view'
+      preLoaderRoute: typeof AdminAttendanceViewRouteImport
+      parentRoute: typeof AdminAttendanceRoute
+    }
   }
 }
 
+interface AdminAttendanceRouteChildren {
+  AdminAttendanceViewRoute: typeof AdminAttendanceViewRoute
+}
+
+const AdminAttendanceRouteChildren: AdminAttendanceRouteChildren = {
+  AdminAttendanceViewRoute: AdminAttendanceViewRoute,
+}
+
+const AdminAttendanceRouteWithChildren = AdminAttendanceRoute._addFileChildren(
+  AdminAttendanceRouteChildren,
+)
+
 interface AdminRouteChildren {
-  AdminAttendanceRoute: typeof AdminAttendanceRoute
+  AdminAttendanceRoute: typeof AdminAttendanceRouteWithChildren
   AdminProfileRoute: typeof AdminProfileRoute
   AdminSlotsRoute: typeof AdminSlotsRoute
   AdminStudentsRoute: typeof AdminStudentsRoute
@@ -921,7 +952,7 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
-  AdminAttendanceRoute: AdminAttendanceRoute,
+  AdminAttendanceRoute: AdminAttendanceRouteWithChildren,
   AdminProfileRoute: AdminProfileRoute,
   AdminSlotsRoute: AdminSlotsRoute,
   AdminStudentsRoute: AdminStudentsRoute,
