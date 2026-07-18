@@ -4,7 +4,7 @@ import { PageHeader, SectionCard, StatCard } from "@/components/ui-bits";
 import { ScanLine, Users, CheckCircle2, XCircle, Clock } from "lucide-react";
 import { students } from "@/lib/mock-data";
 
-export const Route = createFileRoute("/admin/attendance")({
+export const Route = createFileRoute("/admin/attendance/")({
   component: AttendancePage,
 });
 

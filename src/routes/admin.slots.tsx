@@ -130,45 +130,92 @@ function SlotsPage() {
         })}
       </div>
 
-      <Drawer open={open} onClose={() => setOpen(false)} title={editing ? `Edit ${editing.id}` : "Add Slot"}>
+      <Drawer
+        open={open}
+        onClose={() => setOpen(false)}
+        title={editing ? `Edit ${editing.id}` : "Add new slot"}
+        footer={
+          <div className="flex justify-end gap-2">
+            <button onClick={() => setOpen(false)} className="h-9 px-4 rounded-md border border-border text-sm">Cancel</button>
+            <button onClick={save} className="h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm">Submit</button>
+          </div>
+        }
+      >
         <div className="space-y-4">
-          <Field label="Slot ID">
-            <input value={form.id} onChange={(e) => setForm({ ...form, id: e.target.value })} className="input" />
-          </Field>
-          <Field label="Course">
-            <select value={form.course} onChange={(e) => setForm({ ...form, course: e.target.value })} className="input">
-              {COURSES.map((c) => <option key={c}>{c}</option>)}
-            </select>
-          </Field>
-          <Field label="Trainer">
-            <input value={form.trainer} onChange={(e) => setForm({ ...form, trainer: e.target.value })} placeholder="e.g. Ahmed Khan" className="input" />
-          </Field>
-          <Field label="Campus">
-            <select value={form.campus} onChange={(e) => setForm({ ...form, campus: e.target.value })} className="input">
-              {CAMPUSES.map((c) => <option key={c}>{c}</option>)}
-            </select>
-          </Field>
+          <div className="rounded-md border border-primary/30 bg-primary/5 px-3 py-2 text-xs text-primary">
+            Format: Mon 09:00 AM - 11:00 AM | Wed 09:00 AM - 11:00 AM | Fri 09:00 AM - 11:00 AM
+          </div>
           <Field label="Schedule">
             <select value={form.schedule} onChange={(e) => setForm({ ...form, schedule: e.target.value })} className="input">
               {SCHEDULES.map((c) => <option key={c}>{c}</option>)}
             </select>
           </Field>
           <div className="grid grid-cols-2 gap-3">
-            <Field label="Seats Used">
-              <input type="number" value={form.seatsUsed} onChange={(e) => setForm({ ...form, seatsUsed: +e.target.value })} className="input" />
+            <Field label="Select city">
+              <select className="input" defaultValue="">
+                <option value="" disabled>Select city</option>
+                {CAMPUSES.map((c) => <option key={c}>{c.split(" ")[0]}</option>)}
+              </select>
             </Field>
-            <Field label="Seats Total">
-              <input type="number" value={form.seatsTotal} onChange={(e) => setForm({ ...form, seatsTotal: +e.target.value })} className="input" />
+            <Field label="Select campus">
+              <select value={form.campus} onChange={(e) => setForm({ ...form, campus: e.target.value })} className="input">
+                {CAMPUSES.map((c) => <option key={c}>{c}</option>)}
+              </select>
             </Field>
           </div>
-          <label className="flex items-center gap-2 text-sm">
-            <input type="checkbox" checked={form.open} onChange={(e) => setForm({ ...form, open: e.target.checked })} />
-            Registration Open
-          </label>
-          <div className="flex justify-end gap-2 pt-4 border-t border-border">
-            <button onClick={() => setOpen(false)} className="h-9 px-4 rounded-md border border-border text-sm">Cancel</button>
-            <button onClick={save} className="h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm">{editing ? "Save" : "Add Slot"}</button>
+          <Field label="Select course">
+            <select value={form.course} onChange={(e) => setForm({ ...form, course: e.target.value })} className="input">
+              {COURSES.map((c) => <option key={c}>{c}</option>)}
+            </select>
+          </Field>
+          <div className="grid grid-cols-2 gap-3">
+            <Field label="Select trainer">
+              <input value={form.trainer} onChange={(e) => setForm({ ...form, trainer: e.target.value })} placeholder="e.g. Ahmed Khan" className="input" />
+            </Field>
+            <Field label="Class type">
+              <select className="input" defaultValue="Regular"><option>Regular</option><option>Weekend</option><option>Bootcamp</option></select>
+            </Field>
           </div>
+          <div className="grid grid-cols-2 gap-3">
+            <Field label="Select status">
+              <select value={form.open ? "Active" : "Inactive"} onChange={(e) => setForm({ ...form, open: e.target.value === "Active" })} className="input">
+                <option>Active</option><option>Inactive</option>
+              </select>
+            </Field>
+            <Field label="Select gender">
+              <select className="input" defaultValue="Co-Ed"><option>Co-Ed</option><option>Male</option><option>Female</option></select>
+            </Field>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <Field label="Start date"><input type="date" className="input" /></Field>
+            <Field label="End date"><input type="date" className="input" /></Field>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <Field label="Class Type">
+              <select className="input" defaultValue="Lab"><option>Lab</option><option>Classroom</option><option>Online</option></select>
+            </Field>
+            <Field label="Trainer hourly rate">
+              <input type="number" placeholder="e.g. 1500" className="input" />
+            </Field>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <Field label="Paid / Free">
+              <select className="input" defaultValue="Paid"><option>Paid</option><option>Free</option></select>
+            </Field>
+            <Field label="Whatsapp Group link">
+              <input placeholder="https://chat.whatsapp.com/..." className="input" />
+            </Field>
+          </div>
+          <Field label={`Capacity: ${form.seatsTotal}`}>
+            <input
+              type="range"
+              min={10}
+              max={120}
+              value={form.seatsTotal}
+              onChange={(e) => setForm({ ...form, seatsTotal: +e.target.value })}
+              className="w-full accent-primary"
+            />
+          </Field>
         </div>
       </Drawer>
 
