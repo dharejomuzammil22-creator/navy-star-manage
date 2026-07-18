@@ -18,6 +18,7 @@ import {
   Globe,
   Mail,
   Phone,
+  Filter,
 } from "lucide-react";
 
 export const Route = createFileRoute("/super-admin/trainers")({
@@ -36,16 +37,24 @@ function TrainersPage() {
   const [detail, setDetail] = useState<Trainer | null>(null);
   const [edit, setEdit] = useState<Trainer | null>(null);
   const [add, setAdd] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
+  const [fCampus, setFCampus] = useState("");
+  const [fCourse, setFCourse] = useState("");
+
+  const campuses = useMemo(() => Array.from(new Set(allTrainers.map((t) => t.campus))), []);
+  const courseList = useMemo(() => Array.from(new Set(allTrainers.flatMap((t) => t.courses))), []);
 
   const filtered = useMemo(
     () =>
       allTrainers.filter(
         (t) =>
-          !query ||
-          t.name.toLowerCase().includes(query.toLowerCase()) ||
-          t.email.toLowerCase().includes(query.toLowerCase()),
+          (!query ||
+            t.name.toLowerCase().includes(query.toLowerCase()) ||
+            t.email.toLowerCase().includes(query.toLowerCase())) &&
+          (!fCampus || t.campus === fCampus) &&
+          (!fCourse || t.courses.includes(fCourse)),
       ),
-    [query],
+    [query, fCampus, fCourse],
   );
 
   const handleDelete = (t: Trainer) => {
@@ -83,6 +92,12 @@ function TrainersPage() {
               />
             </div>
             <button
+              onClick={() => setShowFilters((v) => !v)}
+              className="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-border bg-card text-sm hover:bg-accent"
+            >
+              <Filter className="h-4 w-4" /> Filters
+            </button>
+            <button
               onClick={exportCsv}
               className="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-border bg-card text-sm hover:bg-accent"
             >
@@ -97,6 +112,32 @@ function TrainersPage() {
           </>
         }
       />
+
+      {showFilters && (
+        <div className="mb-4 rounded-md border border-border bg-muted/30 p-3 flex flex-wrap items-end gap-3">
+          <label className="block">
+            <span className="text-xs text-muted-foreground">Campus</span>
+            <select value={fCampus} onChange={(e) => setFCampus(e.target.value)} className="mt-1 h-9 px-2 rounded-md border border-input bg-background text-sm">
+              <option value="">All campuses</option>
+              {campuses.map((c) => <option key={c} value={c}>{c}</option>)}
+            </select>
+          </label>
+          <label className="block">
+            <span className="text-xs text-muted-foreground">Course</span>
+            <select value={fCourse} onChange={(e) => setFCourse(e.target.value)} className="mt-1 h-9 px-2 rounded-md border border-input bg-background text-sm">
+              <option value="">All courses</option>
+              {courseList.map((c) => <option key={c} value={c}>{c}</option>)}
+            </select>
+          </label>
+          <button
+            onClick={() => { setFCampus(""); setFCourse(""); setQuery(""); }}
+            className="ml-auto h-9 px-3 rounded-md border border-border text-sm hover:bg-accent"
+          >
+            Clear
+          </button>
+        </div>
+      )}
+
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {filtered.map((t) => (
