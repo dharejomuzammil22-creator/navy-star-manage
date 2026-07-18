@@ -11,13 +11,16 @@ import {
   LogOut,
   Bell,
   Search,
+  ChevronDown,
+  Building2,
 } from "lucide-react";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 
 interface NavItem {
-  to: string;
+  to?: string;
   label: string;
-  icon: ReactNode;
+  icon?: ReactNode;
+  children?: NavItem[];
 }
 
 interface AppShellProps {
@@ -28,9 +31,34 @@ const navConfig: Record<AppShellProps["role"], NavItem[]> = {
   admin: [
     { to: "/admin", label: "Dashboard", icon: <LayoutDashboard className="h-4 w-4" /> },
     { to: "/admin/students", label: "Students", icon: <Users className="h-4 w-4" /> },
-    { to: "/admin/attendance", label: "Attendance", icon: <ClipboardCheck className="h-4 w-4" /> },
-    { to: "/admin/slots", label: "Slots", icon: <CalendarClock className="h-4 w-4" /> },
-    { to: "/admin/trainers", label: "Trainers", icon: <GraduationCap className="h-4 w-4" /> },
+    {
+      label: "Attendance",
+      icon: <ClipboardCheck className="h-4 w-4" />,
+      children: [
+        { to: "/admin/attendance", label: "Mark Attendance" },
+        { to: "/admin/attendance/view", label: "View Attendance" },
+      ],
+    },
+    {
+      label: "Administration",
+      icon: <Building2 className="h-4 w-4" />,
+      children: [{ to: "/admin/slots", label: "Slots" }],
+    },
+    {
+      label: "Trainers",
+      icon: <GraduationCap className="h-4 w-4" />,
+      children: [
+        { to: "/admin/trainers", label: "Trainers" },
+        {
+          label: "Attendance",
+          children: [
+            { to: "/admin/trainer-attendance/mark", label: "Mark Attendance" },
+            { to: "/admin/trainer-attendance/view", label: "View Attendance" },
+            { to: "/admin/trainer-attendance/request", label: "Attendance Request" },
+          ],
+        },
+      ],
+    },
     { to: "/admin/updation", label: "Updation", icon: <RefreshCw className="h-4 w-4" /> },
     { to: "/admin/profile", label: "Profile", icon: <UserCircle className="h-4 w-4" /> },
   ],
@@ -57,6 +85,60 @@ const roleLabel: Record<AppShellProps["role"], { title: string; badge: string; u
   student: { title: "Student Portal", badge: "Student", user: "Hassan Raza" },
 };
 
+function isBranchActive(item: NavItem, pathname: string): boolean {
+  if (item.to && (pathname === item.to || pathname.startsWith(item.to + "/"))) return true;
+  return item.children?.some((c) => isBranchActive(c, pathname)) ?? false;
+}
+
+function NavNode({ item, pathname, depth = 0 }: { item: NavItem; pathname: string; depth?: number }) {
+  const isGroup = !!item.children?.length;
+  const anyActive = isBranchActive(item, pathname);
+  const [open, setOpen] = useState<boolean>(anyActive);
+
+  if (isGroup) {
+    return (
+      <div>
+        <button
+          onClick={() => setOpen((o) => !o)}
+          className={`w-full flex items-center gap-3 rounded-md pr-3 py-2 text-sm transition-colors ${
+            anyActive
+              ? "text-sidebar-primary-foreground bg-sidebar-primary/70 font-medium"
+              : "text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+          }`}
+          style={{ paddingLeft: 12 + depth * 12 }}
+        >
+          {item.icon}
+          <span className="flex-1 text-left">{item.label}</span>
+          <ChevronDown className={`h-3.5 w-3.5 transition-transform ${open ? "rotate-180" : ""}`} />
+        </button>
+        {open && (
+          <div className="mt-1 space-y-1">
+            {item.children!.map((c) => (
+              <NavNode key={(c.to || c.label) + depth} item={c} pathname={pathname} depth={depth + 1} />
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  const active = item.to === pathname;
+  return (
+    <Link
+      to={item.to!}
+      className={`flex items-center gap-3 rounded-md pr-3 py-2 text-sm transition-colors ${
+        active
+          ? "bg-sidebar-primary text-sidebar-primary-foreground font-medium"
+          : "text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+      }`}
+      style={{ paddingLeft: 12 + depth * 12 }}
+    >
+      {item.icon}
+      {item.label}
+    </Link>
+  );
+}
+
 export function AppShell({ role }: AppShellProps) {
   const location = useLocation();
   const nav = navConfig[role];
@@ -79,25 +161,9 @@ export function AppShell({ role }: AppShellProps) {
         </div>
 
         <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-          {nav.map((item) => {
-            const active =
-              location.pathname === item.to ||
-              (item.to !== `/${role}` && location.pathname.startsWith(item.to));
-            return (
-              <Link
-                key={item.to}
-                to={item.to}
-                className={`flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors ${
-                  active
-                    ? "bg-sidebar-primary text-sidebar-primary-foreground font-medium"
-                    : "text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-                }`}
-              >
-                {item.icon}
-                {item.label}
-              </Link>
-            );
-          })}
+          {nav.map((item) => (
+            <NavNode key={item.to || item.label} item={item} pathname={location.pathname} />
+          ))}
         </nav>
 
         <div className="p-3 border-t border-sidebar-border">
