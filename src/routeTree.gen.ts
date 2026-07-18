@@ -55,6 +55,7 @@ import { Route as AdminSlotsRouteImport } from './routes/admin.slots'
 import { Route as AdminProfileRouteImport } from './routes/admin.profile'
 import { Route as AdminAttendanceRouteImport } from './routes/admin.attendance'
 import { Route as SuperAdminAttendanceViewRouteImport } from './routes/super-admin.attendance.view'
+import { Route as AdminTrainerAttendanceMarkRouteImport } from './routes/admin.trainer-attendance.mark'
 import { Route as AdminAttendanceViewRouteImport } from './routes/admin.attendance.view'
 
 const TrainerRoute = TrainerRouteImport.update({
@@ -291,6 +292,12 @@ const SuperAdminAttendanceViewRoute =
     path: '/view',
     getParentRoute: () => SuperAdminAttendanceRoute,
   } as any)
+const AdminTrainerAttendanceMarkRoute =
+  AdminTrainerAttendanceMarkRouteImport.update({
+    id: '/trainer-attendance/mark',
+    path: '/trainer-attendance/mark',
+    getParentRoute: () => AdminRoute,
+  } as any)
 const AdminAttendanceViewRoute = AdminAttendanceViewRouteImport.update({
   id: '/view',
   path: '/view',
@@ -344,6 +351,7 @@ export interface FileRoutesByFullPath {
   '/super-admin/': typeof SuperAdminIndexRoute
   '/trainer/': typeof TrainerIndexRoute
   '/admin/attendance/view': typeof AdminAttendanceViewRoute
+  '/admin/trainer-attendance/mark': typeof AdminTrainerAttendanceMarkRoute
   '/super-admin/attendance/view': typeof SuperAdminAttendanceViewRoute
 }
 export interface FileRoutesByTo {
@@ -389,6 +397,7 @@ export interface FileRoutesByTo {
   '/super-admin': typeof SuperAdminIndexRoute
   '/trainer': typeof TrainerIndexRoute
   '/admin/attendance/view': typeof AdminAttendanceViewRoute
+  '/admin/trainer-attendance/mark': typeof AdminTrainerAttendanceMarkRoute
   '/super-admin/attendance/view': typeof SuperAdminAttendanceViewRoute
 }
 export interface FileRoutesById {
@@ -439,6 +448,7 @@ export interface FileRoutesById {
   '/super-admin/': typeof SuperAdminIndexRoute
   '/trainer/': typeof TrainerIndexRoute
   '/admin/attendance/view': typeof AdminAttendanceViewRoute
+  '/admin/trainer-attendance/mark': typeof AdminTrainerAttendanceMarkRoute
   '/super-admin/attendance/view': typeof SuperAdminAttendanceViewRoute
 }
 export interface FileRouteTypes {
@@ -490,6 +500,7 @@ export interface FileRouteTypes {
     | '/super-admin/'
     | '/trainer/'
     | '/admin/attendance/view'
+    | '/admin/trainer-attendance/mark'
     | '/super-admin/attendance/view'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -535,6 +546,7 @@ export interface FileRouteTypes {
     | '/super-admin'
     | '/trainer'
     | '/admin/attendance/view'
+    | '/admin/trainer-attendance/mark'
     | '/super-admin/attendance/view'
   id:
     | '__root__'
@@ -584,6 +596,7 @@ export interface FileRouteTypes {
     | '/super-admin/'
     | '/trainer/'
     | '/admin/attendance/view'
+    | '/admin/trainer-attendance/mark'
     | '/super-admin/attendance/view'
   fileRoutesById: FileRoutesById
 }
@@ -919,6 +932,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SuperAdminAttendanceViewRouteImport
       parentRoute: typeof SuperAdminAttendanceRoute
     }
+    '/admin/trainer-attendance/mark': {
+      id: '/admin/trainer-attendance/mark'
+      path: '/trainer-attendance/mark'
+      fullPath: '/admin/trainer-attendance/mark'
+      preLoaderRoute: typeof AdminTrainerAttendanceMarkRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/attendance/view': {
       id: '/admin/attendance/view'
       path: '/view'
@@ -949,6 +969,7 @@ interface AdminRouteChildren {
   AdminTrainersRoute: typeof AdminTrainersRoute
   AdminUpdationRoute: typeof AdminUpdationRoute
   AdminIndexRoute: typeof AdminIndexRoute
+  AdminTrainerAttendanceMarkRoute: typeof AdminTrainerAttendanceMarkRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
@@ -959,6 +980,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminTrainersRoute: AdminTrainersRoute,
   AdminUpdationRoute: AdminUpdationRoute,
   AdminIndexRoute: AdminIndexRoute,
+  AdminTrainerAttendanceMarkRoute: AdminTrainerAttendanceMarkRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
